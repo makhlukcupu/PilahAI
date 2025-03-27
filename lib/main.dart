@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:skripshot/waste_detail_screen.dart';
+import 'package:skripshot/category_detail_page.dart';
 import 'package:skripshot/yolo_model.dart';
 import 'camera_screen.dart';
+//import 'detection_page.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await loadLabels();
   await YoloModel().loadModel(); // Load model when app starts
   runApp(MyApp());
+}
+Map<int, String> classLabels = {};
+
+Future<void> loadLabels() async {
+  final String jsonString = await rootBundle.loadString('assets/categories.json');
+  final Map<String, dynamic> jsonData = json.decode(jsonString);
+  classLabels = jsonData.map((key, value) => MapEntry(int.parse(key), value));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,15 +49,15 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SORTING GUIDE', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('PANDUAN MEMILAH SAMPAH', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           labelColor: Colors.black,
           indicatorColor: Colors.green,
           tabs: [
-            Tab(text: 'CATEGORIES'),
-            Tab(text: 'OBJECTS'),
+            Tab(text: 'KATEGORI'),
+            Tab(text: 'CARI BARANG'),
           ],
         ),
       ),
@@ -54,7 +65,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
         controller: _tabController,
         children: [
           WasteCategoryGrid(),
-          Center(child: Text('Objects Placeholder', style: TextStyle(fontSize: 18))),
+          Center(child: Text('HALAMAN PENCARIAN OBJEK SAMPAH', style: TextStyle(fontSize: 18))),// HALAMAN PENCARIAN BARANG
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -73,20 +84,15 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 
 class WasteCategoryGrid extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.weekend, 'label': 'BULKY WASTE'},
-    {'icon': Icons.local_shipping, 'label': 'CARTON'},
-    {'icon': Icons.bolt, 'label': 'EE-WASTE'},
-    {'icon': Icons.tv, 'label': 'ELECTRONIC'},
-    {'icon': Icons.checkroom, 'label': 'FABRIC/CLOTHES/SHOES'},
-    {'icon': Icons.science, 'label': 'FAT'},
-    {'icon': Icons.wine_bar, 'label': 'GLASS'},
-    {'icon': Icons.warning, 'label': 'HAZARDOUS WASTE'},
-    {'icon': Icons.build, 'label': 'METAL'},
-    {'icon': Icons.eco, 'label': 'ORGANIC WASTE'},
-    {'icon': Icons.menu_book, 'label': 'PAPER'},
-    {'icon': Icons.local_drink, 'label': 'PLASTIC'},
-    {'icon': Icons.category, 'label': 'POLYSTYRENE'},
-    {'icon': Icons.delete, 'label': 'RESIDUAL WASTE'},
+    {'icon': Icons.bolt, 'label': 'E-WASTE'},
+    {'icon': Icons.wine_bar, 'label': 'KACA'},
+    {'icon': Icons.menu_book, 'label': 'KERTAS'},
+    {'icon': Icons.build, 'label': 'LOGAM'},
+    {'icon': Icons.eco, 'label': 'ORGANIK'},
+    {'icon': Icons.local_drink, 'label': 'PLASTIK'},
+    {'icon': Icons.delete, 'label': 'RESIDU'},
+    {'icon': Icons.category, 'label': 'STYROFOAM'},
+    {'icon': Icons.checkroom, 'label': 'TEKSTIL'},
   ];
 
   @override

@@ -18,10 +18,7 @@ class YoloModel {
 
   /// Load YOLO model once
   Future<void> loadModel() async {
-    if (_interpreter == null) {
-      _interpreter = await Interpreter.fromAsset("best.tflite");
-      print("✅ YOLO Model Loaded Once!");
-    }
+    _interpreter ??= await Interpreter.fromAsset("best.tflite");
   }
 
   Future<List<Map<String, dynamic>>> runYOLOv11Model(String imagePath) async {
@@ -47,7 +44,7 @@ class YoloModel {
       var imageProcessor = ImageProcessorBuilder()
           .add(ResizeOp(
           640, 640, ResizeMethod.nearestneighbour)) // Resize to match model input
-          .add(NormalizeOp(127.5, 127.5)) // Normalize between -1 and 1
+          .add(NormalizeOp(0, 255.0)) // Normalize between -1 and 1
           .build();
 
       inputImage = imageProcessor.process(inputImage);
@@ -82,7 +79,7 @@ class YoloModel {
     int numClasses = _interpreter!.getOutputTensor(0).shape[1] - 4; // adjust to number of classes of my model
 
     final yoloProcessor = YoloPostProcessor(
-        confThreshold: 0.6, nmsThreshold: 0.4);
+        confThreshold: 0.4, nmsThreshold: 0.4);
     List<Map<String, dynamic>> detections = yoloProcessor.processOutput(
         outputData, numBoxes, numClasses);
 

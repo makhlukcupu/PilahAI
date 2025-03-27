@@ -1,7 +1,8 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:skripshot/main.dart';
 import 'yolo_model.dart';
+
 
 class DetectionScreen extends StatefulWidget {
   final String imagePath;
@@ -30,6 +31,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
     _runObjectDetection();
   }
 
+
   Future<void> _getImageSize() async {
     final image = await decodeImageFromList(File(widget.imagePath).readAsBytesSync());
     if (mounted) {
@@ -41,6 +43,9 @@ class _DetectionScreenState extends State<DetectionScreen> {
   }
 
   Future<void> _runObjectDetection() async {
+    if (classLabels.isEmpty) {
+      await loadLabels(); // Ensure labels are loaded
+    }
     try {
       List<Map<String, dynamic>> results = await model.runYOLOv11Model(widget.imagePath);
       if (!mounted) return;
@@ -50,7 +55,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
         isProcessing = false;
       });
     } catch (e) {
-      print("Error running detection: $e");
+      //print("Error running detection: $e");
       setState(() {
         isProcessing = false;
       });
@@ -140,7 +145,8 @@ class _DetectionScreenState extends State<DetectionScreen> {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.red, width: 2),
           ),
-          child: Text("object: ${object.toString()} confidence: ${score.toStringAsFixed(2)}", style: TextStyle(color: Colors.white))
+
+          child: Text("${classLabels[object]!} $score")
         ),
       );
     }).toList();
