@@ -1,8 +1,9 @@
 {
   "0": "botol_kaca",
-  "1": "botol_plastik_pakai_ulang",
-  "2": "gelas_kaca",
-  "3": "kaleng",
-  "4": "kertas_tisu_karton",
-  "5": "tutup_botol_plastik"
+  "1": "botol_plastik_isi_ulang",
+  "2": "botol_plastik_sekali_pakai",
+  "3": "gelas_kaca",
+  "4": "kaleng",
+  "5": "kertas_tisu_karton",
+  "6": "tutup_botol_plastik"
 }

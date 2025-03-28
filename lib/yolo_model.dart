@@ -79,7 +79,7 @@ class YoloModel {
     int numClasses = _interpreter!.getOutputTensor(0).shape[1] - 4; // adjust to number of classes of my model
 
     final yoloProcessor = YoloPostProcessor(
-        confThreshold: 0.4, nmsThreshold: 0.4);
+        confThreshold: 0.6, nmsThreshold: 0.4);
     List<Map<String, dynamic>> detections = yoloProcessor.processOutput(
         outputData, numBoxes, numClasses);
 
