@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:skripshot/main.dart';
@@ -112,6 +113,14 @@ class _DetectionScreenState extends State<DetectionScreen> {
                   ),
                 ),
               ..._drawBoundingBoxes(),
+              Positioned.fill(
+                child: DetectionBottomDrawer(
+                  objects: detectedBoxes.map((d) => classLabels[d['classIndex']] ?? 'Unknown').toList(),
+                  onTapObject: (objectName) {
+                    _navigateToDetail(objectName);
+                  },
+                ),
+              ),
             ],
           );
         },
@@ -150,7 +159,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
             top: y - 30, // Move the label above the box
             child: GestureDetector(
               onTap: () {
-                _navigateToDetail(classLabels[object]!, score);
+                _navigateToDetail(classLabels[object]!);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
@@ -170,11 +179,11 @@ class _DetectionScreenState extends State<DetectionScreen> {
     }).toList();
   }
 
-  void _navigateToDetail(String label, double confidence) {
+  void _navigateToDetail(String label) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailScreen(label: label, confidence: confidence),
+        builder: (context) => DetailScreen(label: label),
       ),
     );
   }
@@ -182,9 +191,8 @@ class _DetectionScreenState extends State<DetectionScreen> {
 
 class DetailScreen extends StatelessWidget {
   final String label;
-  final double confidence;
 
-  const DetailScreen({Key? key, required this.label, required this.confidence}) : super(key: key);
+  const DetailScreen({Key? key, required this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +200,98 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(title: Text("$label Details")),
       body: Center(
         child: Text(
-          "Detected: $label\nConfidence: ${confidence.toStringAsFixed(2)}",
+          "Detected: $label\n",
           style: TextStyle(fontSize: 20),
           textAlign: TextAlign.center,
         ),
       ),
+    );
+  }
+}
+
+class DetectionBottomDrawer extends StatefulWidget {
+  final List<String> objects;
+  final Function(String) onTapObject;
+
+  const DetectionBottomDrawer({
+    Key? key,
+    required this.objects,
+    required this.onTapObject,
+  }) : super(key: key);
+
+  @override
+  _DetectionBottomDrawerState createState() => _DetectionBottomDrawerState();
+}
+
+class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
+  late DraggableScrollableController _controller;
+  bool isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = DraggableScrollableController();
+  }
+
+  void _toggleDrawer() {
+    final targetSize = isExpanded ? 0.08 : 0.4;
+    _controller.animateTo(
+      targetSize,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+    setState(() {
+      isExpanded = !isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      controller: _controller,
+      initialChildSize: 0.08,
+      minChildSize: 0.08,
+      maxChildSize: 0.4,
+      builder: (context, scrollController) {
+        return GestureDetector(
+          onTap: _toggleDrawer,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+            ),
+            child: ListView(
+              controller: scrollController,
+              physics: BouncingScrollPhysics(),
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 4),
+                Center(
+                  child: Text("Objek Terdeteksi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 12),
+                ...widget.objects.map((obj) => ListTile(
+                  title: Text(obj),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () => widget.onTapObject(obj),
+                )),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

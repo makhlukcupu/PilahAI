@@ -1,0 +1,117 @@
+{
+  "categories": [
+    {
+      "id": "organic",
+      "name": "Organik",
+      "icon": "assets/icons/organic.png",
+      "recyclable": true,
+      "description": "Sampah organik berasal dari sisa makhluk hidup seperti daun, sisa makanan, dan buah-buahan. Dapat diolah menjadi kompos.",
+      "recyclingInstructions": "Kumpulkan sisa makanan dan bahan organik lainnya, lalu gunakan komposter untuk mengubahnya menjadi pupuk.",
+      "objects": [
+        {
+          "id": "banana_peel",
+          "name": "Kulit Pisang",
+          "icon": "assets/icons/organic.png",
+          "recyclable": true,
+          "description": "Kulit pisang bisa dijadikan pupuk kompos.",
+          "ideas": [
+            {
+              "title": "Cara Membuat Kompos dari Kulit Pisang",
+              "youtubeId": "a1b2c3d4e5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plastic",
+      "name": "Plastik",
+      "icon": "assets/icons/bottle.png",
+      "recyclable": true,
+      "description": "Sampah plastik seperti botol dan kantong plastik dapat didaur ulang atau digunakan ulang.",
+      "recyclingInstructions": "Cuci bersih botol plastik dan pisahkan dari jenis plastik lain sebelum dibawa ke bank sampah.",
+      "objects": [
+        {
+          "id": "plastic_bottle",
+          "name": "Botol Plastik",
+          "icon": "assets/icons/bottle.png",
+          "recyclable": true,
+          "description": "Botol plastik PET dapat didaur ulang untuk berbagai keperluan.",
+          "ideas": [
+            {
+              "title": "Kerajinan dari Botol Plastik",
+              "youtubeId": "f6g7h8i9j0"
+            },
+            {
+              "title": "Pot Tanaman dari Botol Bekas",
+              "youtubeId": "z1x2c3v4b5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper",
+      "name": "Kertas",
+      "icon": "assets/icons/paper.png",
+      "recyclable": true,
+      "description": "Kertas bekas seperti koran dan kardus bisa didaur ulang.",
+      "recyclingInstructions": "Pisahkan kertas dari sampah basah dan lipat rapi untuk dikumpulkan.",
+      "objects": []
+    },
+    {
+      "id": "glass",
+      "name": "Kaca",
+      "icon": "assets/icons/glass.png",
+      "recyclable": true,
+      "description": "Botol dan pecahan kaca bisa didaur ulang jika tidak tercampur bahan lain.",
+      "recyclingInstructions": "Kumpulkan kaca secara terpisah dan bungkus jika pecah agar tidak melukai.",
+      "objects": []
+    },
+    {
+      "id": "metal",
+      "name": "Logam",
+      "icon": "assets/icons/metal.png",
+      "recyclable": true,
+      "description": "Kaleng dan benda logam lainnya sangat mudah didaur ulang.",
+      "recyclingInstructions": "Cuci kaleng makanan dan kumpulkan dalam satu wadah.",
+      "objects": []
+    },
+    {
+      "id": "textile",
+      "name": "Tekstil",
+      "icon": "assets/icons/textile.png",
+      "recyclable": true,
+      "description": "Pakaian bekas atau kain rusak bisa dimanfaatkan kembali.",
+      "recyclingInstructions": "Sumbangkan pakaian layak atau ubah menjadi kain lap.",
+      "objects": []
+    },
+    {
+      "id": "rubber",
+      "name": "Karet",
+      "icon": "assets/icons/rubber.png",
+      "recyclable": false,
+      "description": "Karet sulit didaur ulang secara umum dan seringkali harus dibuang secara khusus.",
+      "recyclingInstructions": "Cari fasilitas daur ulang khusus atau pusat pengumpulan.",
+      "objects": []
+    },
+    {
+      "id": "e-waste",
+      "name": "E-Waste",
+      "icon": "assets/icons/ewaste.png",
+      "recyclable": false,
+      "description": "Sampah elektronik memerlukan penanganan khusus karena mengandung bahan berbahaya.",
+      "recyclingInstructions": "Jangan dibuang ke tempat sampah biasa. Serahkan ke fasilitas daur ulang e-waste.",
+      "objects": []
+    },
+    {
+      "id": "residu",
+      "name": "residu",
+      "icon": "assets/icons/residu.png",
+      "recyclable": false,
+      "description": "sampah yang tidak bisa dikategorikan seperti kategori kategori lainnya. Bahan yang digunakan biasanya bercampur, sehingga tidak masuk kategori lainnya.",
+      "recyclingInstructions": "Buang di tempat sampah khusus residu. Jika tidak ada, maka buanglah di tempat sampah anorganik",
+      "objects": []
+    }
+  ]
+}

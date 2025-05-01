@@ -5,6 +5,10 @@ import 'camera_screen.dart';
 //import 'detection_page.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:lucide_icons/lucide_icons.dart';
+import 'data_loader.dart';
+import 'models.dart';
+import 'category_detail_page.dart'; // You'll create this if not yet
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,104 +35,211 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class HomePage extends StatefulWidget{
+
+class HomePage extends StatefulWidget {
   @override
-  _HomePage createState() => _HomePage();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _HomePageState extends State<HomePage> {
+  late Future<List<Category>> futureCategories;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    futureCategories = loadCategoriesFromJson();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('PANDUAN MEMILAH SAMPAH', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Colors.black,
-          indicatorColor: Colors.green,
-          tabs: [
-            Tab(text: 'KATEGORI'),
-            Tab(text: 'CARI BARANG'),
+        title: Text("Halo 👋", style: TextStyle(fontSize: 30, color: Colors.green[800])),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.green[800]),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 🔍 Search Bar
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Cari jenis sampah...',
+                  prefixIcon: Icon(Icons.search),
+                  filled: true,
+                  fillColor: Colors.green[50],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+
+            // 🧭 Category Carousel
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text("Kategori", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(
+              height: 120,
+              child: FutureBuilder<List<Category>>(
+                future: futureCategories,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text("Gagal memuat kategori"));
+                  }
+
+                  final categories = snapshot.data!;
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      final category = categories[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CategoryDetailPage(category: category),
+                            ),
+                          );
+                        },
+                        child: CategoryCard(name: category.name, iconEmojiOrPath: category.icon),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+
+            SizedBox(height: 24),
+
+            // 🧠 Smart Suggestions (static for now)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text("Terakhir dilihat", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SuggestionCard(name: "Botol Plastik", recyclable: true),
+            ),
+
+            SizedBox(height: 24),
+
+            // ♻️ Tip of the Day
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text("♻️ Tips Hari Ini", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                color: Colors.green[50],
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    "Gunakan kembali botol plastik sebagai pot tanaman atau tempat pensil!",
+                    style: TextStyle(color: Colors.green[900]),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          WasteCategoryGrid(),
-          Center(child: Text('HALAMAN PENCARIAN OBJEK SAMPAH', style: TextStyle(fontSize: 18))),// HALAMAN PENCARIAN BARANG
-        ],
-      ),
+
+      // 📸 Floating Camera Button
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to Camera Screen
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CameraScreen()),
+            MaterialPageRoute(
+              builder: (_) => CameraScreen(),
+            ),
           );
         },
-        child: const Icon(Icons.camera_alt),
+        backgroundColor: Colors.green[700],
+        child: Icon(Icons.camera_alt, color: Colors.white),
       ),
     );
   }
 }
 
-class WasteCategoryGrid extends StatelessWidget {
-  final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.bolt, 'label': 'E-WASTE'},
-    {'icon': Icons.wine_bar, 'label': 'KACA'},
-    {'icon': Icons.menu_book, 'label': 'KERTAS'},
-    {'icon': Icons.build, 'label': 'LOGAM'},
-    {'icon': Icons.eco, 'label': 'ORGANIK'},
-    {'icon': Icons.local_drink, 'label': 'PLASTIK'},
-    {'icon': Icons.delete, 'label': 'RESIDU'},
-    {'icon': Icons.category, 'label': 'STYROFOAM'},
-    {'icon': Icons.checkroom, 'label': 'TEKSTIL'},
-  ];
+// --- Reusable Widgets ---
+
+class CategoryCard extends StatelessWidget {
+  final String name;
+  final String iconEmojiOrPath;
+
+  const CategoryCard({required this.name, required this.iconEmojiOrPath});
+
+  bool _isAssetPath(String input) {
+    return input.endsWith('.png') || input.endsWith('.jpg') || input.contains('assets/');
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.all(16.0),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.8,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
+    return Container(
+      width: 100,
+      margin: EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+        color: Colors.green[100],
+        borderRadius: BorderRadius.circular(16),
       ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => WasteDetailScreen(label: categories[index]['label']),
-              ),
-            );
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(categories[index]['icon'], size: 50, color: Colors.grey[700]),
-              SizedBox(height: 8),
-              Text(categories[index]['label'],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-            ],
-          ),
-        );
-      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _isAssetPath(iconEmojiOrPath)
+              ? Image.asset(iconEmojiOrPath, width: 48, height: 48)
+              : Text(iconEmojiOrPath, style: TextStyle(fontSize: 32)),
+          SizedBox(height: 8),
+          Text(name, style: TextStyle(color: Colors.green[900])),
+        ],
+      ),
     );
   }
 }
 
+class SuggestionCard extends StatelessWidget {
+  final String name;
+  final bool recyclable;
+
+  const SuggestionCard({required this.name, required this.recyclable});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ListTile(
+        leading: Icon(LucideIcons.box, color: Colors.green[700]),
+        title: Text(name),
+        subtitle: Text(
+          recyclable ? "Dapat didaur ulang" : "Tidak dapat didaur ulang",
+          style: TextStyle(color: recyclable ? Colors.green : Colors.red),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios, size: 16),
+        onTap: () {
+          // navigate to object detail
+        },
+      ),
+    );
+  }
+}
