@@ -41,6 +41,7 @@ class WasteObject {
   final String description;
   final bool recyclable;
   final bool hazardous;
+  final List<dynamic> alias;//harusnya string, tapi ada typo atau error di database, ada yang kebaca bukan string
   final List<RecyclingIdea> recyclingIdeas;
 
   WasteObject({
@@ -50,6 +51,7 @@ class WasteObject {
     required this.description,
     required this.recyclable,
     required this.hazardous,
+    required this.alias,
     required this.recyclingIdeas,
   });
 
@@ -60,6 +62,7 @@ class WasteObject {
     description: json['description'],
     recyclable: json['recyclable'],
     hazardous: json['hazardous'],
+    alias: json['alias'],
     recyclingIdeas: (json['reuse_ideas'] as List)
         .map((e) => RecyclingIdea.fromJson(e))
         .toList(),

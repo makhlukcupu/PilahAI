@@ -100,6 +100,7 @@
       "hazardous": false,
       "description": "Buah yang sudah tidak layak konsumsi, bisa dijadikan kompos.",
       "icon": "buah.png",
+      "alias": ["kulit pisang", "buah busuk", "apel", "jeruk", "kulit jeruk", "mangga"],
       "reuse_ideas": [
         {
           "title": "Jadikan Kompos",
@@ -109,13 +110,14 @@
       ]
     },
     {
-      "id": "cangkang_telur",
-      "name": "Cangkang Telur",
+      "id": "telur",
+      "name": "Telur",
       "category_id": "organik",
       "recyclable": true,
       "hazardous": false,
       "description": "Cangkang telur bisa dihancurkan dan dijadikan pupuk alami.",
       "icon": "telur.png",
+      "alias": ["cangkang telur", "telur puyuh", "telur ayam", "telur bebek"],
       "reuse_ideas": [
         {
           "title": "Pupuk dari Cangkang Telur",
@@ -132,6 +134,7 @@
       "hazardous": false,
       "description": "Botol plastik bekas minuman bisa digunakan kembali atau didaur ulang.",
       "icon": "botol.png",
+      "alias": ["botol aqua", "botol le minerale", "botol vit", "botol minum"],
       "reuse_ideas": [
         {
           "title": "Pot dari Botol",
@@ -148,6 +151,7 @@
       "hazardous": false,
       "description": "Kantong plastik bisa digunakan ulang untuk belanja.",
       "icon": "kantong.png",
+      "alias": ["kresek"],
       "reuse_ideas": [
         {
           "title": "Tas dari Kantong Plastik",
@@ -164,6 +168,7 @@
       "hazardous": false,
       "description": "Botol kaca bisa dicuci dan digunakan kembali.",
       "icon": "botolkaca.png",
+      "alias": ["krating daeng", "you c", "botol sirup", "sirup abc"],
       "reuse_ideas": [
         {
           "title": "Vas dari Botol Kaca",
@@ -180,6 +185,7 @@
       "hazardous": false,
       "description": "Pecahan kaca berbahaya dan sulit untuk didaur ulang.",
       "icon": "pecahankaca.png",
+      "alias": ["beling", "kaca beling", "beling kaca"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",
@@ -194,6 +200,7 @@
       "hazardous": false,
       "description": "Koran bekas bisa digunakan untuk membungkus atau daur ulang.",
       "icon": "koran.png",
+      "alias": ["kertas koran", "surat kabar"],
       "reuse_ideas": [
         {
           "title": "Kertas Kado dari Koran",
@@ -210,6 +217,7 @@
       "hazardous": false,
       "description": "Dus kardus dapat dilipat dan digunakan kembali.",
       "icon": "kardus.png",
+      "alias": ["kardus", "gardus", "pak"],
       "reuse_ideas": [
         {
           "title": "Rak Buku dari Kardus",
@@ -226,6 +234,7 @@
       "hazardous": false,
       "description": "Kaleng bekas dapat dilebur dan dijadikan produk logam baru.",
       "icon": "kaleng.png",
+      "alias": ["kaleng soda", "kaleng jus", "kaleng bekas"],
       "reuse_ideas": [
         {
           "title": "Tempat Pensil dari Kaleng",
@@ -242,6 +251,7 @@
       "hazardous": false,
       "description": "Besi berkarat sulit diproses ulang dan bisa berbahaya.",
       "icon": "besi.png",
+      "alias": ["besi bekas", "aluminium bekas", "aluminum bekas"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",
@@ -256,6 +266,7 @@
       "hazardous": false,
       "description": "HP rusak sebaiknya dikirim ke tempat daur ulang e-waste.",
       "icon": "hp.png",
+      "alias": ["hp bekas", "handphone bekas"],
       "reuse_ideas": [
         {
           "title": "Recycle HP Lama",
@@ -272,6 +283,7 @@
       "hazardous": false,
       "description": "Baterai bekas berbahaya, jangan dibuang sembarangan.",
       "icon": "baterai.png",
+      "alias": ["baterai soak", "baterai lama", "batere", "batre"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",
@@ -286,6 +298,7 @@
       "hazardous": false,
       "description": "Kaos bekas bisa dijadikan kain lap atau daur ulang.",
       "icon": "kaos.png",
+      "alias": ["baju bekas", "baju robek"],
       "reuse_ideas": [
         {
           "title": "Lap dari Kaos Bekas",
@@ -302,6 +315,7 @@
       "hazardous": false,
       "description": "Celana jeans bekas bisa dijadikan tas atau tempat pensil.",
       "icon": "jeans.png",
+      "alias": ["celana bekas", "celana rusak", "celana robek"],
       "reuse_ideas": [
         {
           "title": "Tas dari Jeans",
@@ -318,6 +332,7 @@
       "hazardous": false,
       "description": "Ban bekas sulit terurai, bisa dijadikan pot tanaman.",
       "icon": "ban.png",
+      "alias": ["ban aus"],
       "reuse_ideas": [
         {
           "title": "Pot dari Ban",
@@ -334,6 +349,7 @@
       "hazardous": false,
       "description": "Sandal rusak sulit didaur ulang dan perlu dibuang dengan benar.",
       "icon": "sandal.png",
+      "alias": ["sendal putus", "sendal bekas"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",
@@ -348,6 +364,7 @@
       "hazardous": false,
       "description": "Popok bekas adalah residu yang tidak dapat didaur ulang.",
       "icon": "popok.png",
+      "alias": ["popok busuk"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",
@@ -362,6 +379,7 @@
       "hazardous": false,
       "description": "Sisa minyak tidak dapat dibuang ke saluran air karena mencemari lingkungan.",
       "icon": "minyak.png",
+      "alias": ["minyak bekas", "minyak sisa"],
       "reuse_ideas": [{
         "title": "Recycle HP Lama",
         "youtube_url": "https://youtu.be/daurhp",

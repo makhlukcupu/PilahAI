@@ -8,7 +8,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:lucide_icons/lucide_icons.dart';
 import 'data_loader.dart';
 import 'models.dart';
-import 'category_detail_page.dart'; // You'll create this if not yet
+import 'package:skripshot/search_page.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,15 +74,29 @@ class _HomePageState extends State<HomePage> {
             // 🔍 Search Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Cari jenis sampah...',
-                  prefixIcon: Icon(Icons.search),
-                  filled: true,
-                  fillColor: Colors.green[50],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AllObjectsPage()),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search, color: Colors.grey[600]),
+                      SizedBox(width: 10),
+                      Text(
+                        "Cari sampah...",
+                        style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                      ),
+                    ],
                   ),
                 ),
               ),
