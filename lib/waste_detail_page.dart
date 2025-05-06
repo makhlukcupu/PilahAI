@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:skripshot/data_loader.dart';
 import 'package:skripshot/models.dart';
 
 class ObjectDetailPage extends StatelessWidget {
-  final RecyclableObject object;
+  final String objectName;
+  final String icon;
+  late final object = WasteRepository.objects.firstWhere((o) => o.name == objectName);
+  ObjectDetailPage({Key? key, required this.objectName, required this.icon}) : super(key: key);
 
-  const ObjectDetailPage({Key? key, required this.object}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class ObjectDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child:Image.asset(object.icon, width: 48, height: 48) ,),
+              Center(child:Image.asset(icon, width: 48, height: 48) ,),
               SizedBox(height: 8),
               Center(child: Text(object.name, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold))),
               Center(child: Text(
@@ -33,7 +36,7 @@ class ObjectDetailPage extends StatelessWidget {
               Divider(),
               ExpansionTile(
                 title: Text("Ide Guna Ulang"),
-                children: object.ideas.map((idea) {
+                children: object.recyclingIdeas.map((idea) {
                   return ListTile(
                     leading: Text("[Thumbnail]"), // use CachedNetworkImage in actual app
                     title: Text(idea.title),

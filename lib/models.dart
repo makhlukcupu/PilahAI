@@ -1,79 +1,67 @@
-class RecyclingIdea {
-  final String title;
-  final String youtubeId;
-
-  RecyclingIdea({required this.title, required this.youtubeId});
-
-  factory RecyclingIdea.fromJson(Map<String, dynamic> json) {
-    return RecyclingIdea(
-      title: json['title'],
-      youtubeId: json['youtubeId'],
-    );
-  }
-}
-
-class RecyclableObject {
-  final String id;
-  final String name;
-  final String icon;
-  final bool recyclable;
-  final String description;
-  final List<RecyclingIdea> ideas;
-
-  RecyclableObject({
-    required this.id,
-    required this.name,
-    required this.icon,
-    required this.recyclable,
-    required this.description,
-    required this.ideas,
-  });
-
-  factory RecyclableObject.fromJson(Map<String, dynamic> json) {
-    var ideasJson = json['ideas'] ?? [];
-    return RecyclableObject(
-      id: json['id'],
-      name: json['name'],
-      icon: json['icon'],
-      recyclable: json['recyclable'],
-      description: json['description'],
-      ideas: List<RecyclingIdea>.from(
-        ideasJson.map((idea) => RecyclingIdea.fromJson(idea)),
-      ),
-    );
-  }
-}
-
 class Category {
   final String id;
   final String name;
   final String icon;
-  final bool recyclable;
   final String description;
-  final String recyclingInstructions;
-  final List<RecyclableObject> objects;
+  final List<String> objects;
 
   Category({
     required this.id,
     required this.name,
     required this.icon,
-    required this.recyclable,
     required this.description,
-    required this.recyclingInstructions,
     required this.objects,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
-      id: json['id'],
-      name: json['name'],
-      icon: json['icon'],
-      recyclable: json['recyclable'],
-      description: json['description'],
-      recyclingInstructions: json['recyclingInstructions'],
-      objects: List<RecyclableObject>.from(
-        (json['objects'] as List).map((obj) => RecyclableObject.fromJson(obj)),
-      ),
-    );
-  }
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    icon: json['icon'] as String,
+    description: json['description'] as String,
+    objects: List<String>.from(json['objects'] as List), // Explicit cast to List<String>
+  );
+}
+
+class RecyclingIdea {
+  final String title;
+  final String url;
+
+  RecyclingIdea({required this.title, required this.url});
+
+  factory RecyclingIdea.fromJson(Map<String, dynamic> json) => RecyclingIdea(
+    title: json['title'],
+    url: json['youtube_url'],
+  );
+}
+
+class WasteObject {
+  final String name;
+  final String categoryId;
+  //final String icon;
+  final String description;
+  final bool recyclable;
+  final bool hazardous;
+  final List<RecyclingIdea> recyclingIdeas;
+
+  WasteObject({
+    required this.name,
+    required this.categoryId,
+    //required this.icon,
+    required this.description,
+    required this.recyclable,
+    required this.hazardous,
+    required this.recyclingIdeas,
+  });
+
+  factory WasteObject.fromJson(Map<String, dynamic> json) => WasteObject(
+    name: json['name'],
+    categoryId: json['category_id'],
+    //icon: json['icon'],
+    description: json['description'],
+    recyclable: json['recyclable'],
+    hazardous: json['hazardous'],
+    recyclingIdeas: (json['reuse_ideas'] as List)
+        .map((e) => RecyclingIdea.fromJson(e))
+        .toList(),
+  );
 }

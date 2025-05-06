@@ -9,7 +9,6 @@ class CategoryDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isRecyclable = category.recyclable;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -39,16 +38,16 @@ class CategoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Center(
-                      child: Text(
-                        isRecyclable ? "Dapat Didaur Ulang" : "Tidak Dapat Didaur Ulang",
-                        style: TextStyle(
-                          color: isRecyclable ? Colors.green : Colors.red,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    // Center(
+                    //   child: Text(
+                    //     isRecyclable ? "Dapat Didaur Ulang" : "Residu",
+                    //     style: TextStyle(
+                    //       color: isRecyclable ? Colors.green : Colors.red,
+                    //       fontSize: 14,
+                    //       fontWeight: FontWeight.w500,
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(height: 16),
                     Text(
                       category.description,
@@ -61,7 +60,7 @@ class CategoryDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      category.recyclingInstructions,
+                      category.description,
                       style: const TextStyle(fontSize: 15, height: 1.4),
                     ),
                     const Divider(height: 32),
@@ -72,13 +71,13 @@ class CategoryDetailPage extends StatelessWidget {
                       ),
                       children: category.objects.map((obj) {
                         return ListTile(
-                          title: Text(obj.name),
+                          title: Text(obj),
                           //leading: Text(obj.icon, style: const TextStyle(fontSize: 24)),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ObjectDetailPage(object: obj),
+                                builder: (context) => ObjectDetailPage(objectName: obj, icon: category.icon),
                               ),
                             );
                           },

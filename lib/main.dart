@@ -14,6 +14,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await loadLabels();
   await YoloModel().loadModel(); // Load model when app starts
+  await WasteRepository.loadFromJson();//load all waste data
   runApp(MyApp());
 }
 Map<int, String> classLabels = {};
@@ -42,12 +43,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Category>> futureCategories;
+  final categories = WasteRepository.categories;
 
   @override
   void initState() {
     super.initState();
-    futureCategories = loadCategoriesFromJson();
   }
 
   @override
@@ -95,38 +95,39 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(
               height: 120,
-              child: FutureBuilder<List<Category>>(
-                future: futureCategories,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text("Gagal memuat kategori"));
-                  }
-
-                  final categories = snapshot.data!;
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      final category = categories[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => CategoryDetailPage(category: category),
-                            ),
-                          );
-                        },
-                        child: CategoryCard(name: category.name, iconEmojiOrPath: category.icon),
-                      );
-                    },
-                  );
-                },
+              child:
+              //FutureBuilder<List<Category>>(
+              //   future: futureCategories,
+              //   builder: (context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const Center(child: CircularProgressIndicator());
+              //     } else if (snapshot.hasError) {
+              //       return const Center(child: Text("Gagal memuat kategori"));
+              //     }
+              //
+              //     final categories = snapshot.data!;
+                ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CategoryDetailPage(category: category),
+                          ),
+                        );
+                      },
+                      child: CategoryCard(name: category.name, iconEmojiOrPath: category.icon),
+                    );
+                  },
+                ),
+                //},
               ),
-            ),
+            //),
 
             SizedBox(height: 24),
 

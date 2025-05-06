@@ -69,6 +69,7 @@ flutter:
       - assets/waste_data.json
       - assets/categories.json
       - assets/data/data.json
+      - assets/waste_database.json
       - assets/icons/
 
   # To add assets to your application, add an assets section, like this:
