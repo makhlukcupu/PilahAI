@@ -1,0 +1,1098 @@
+{"categories": [
+  {
+    "id": "organik",
+    "name": "Organik",
+    "description": "Sampah organik adalah limbah yang berasal dari bahan alami dan mudah terurai secara hayati. Jika tidak dikelola dengan baik, sampah ini dapat menimbulkan bau, mencemari lingkungan, dan menghasilkan gas rumah kaca seperti metana. Namun, pengelolaan yang tepat dapat mengubahnya menjadi sumber daya yang berguna, seperti pupuk atau pakan, serta membantu mengurangi dampak lingkungan.",
+    "handling" : "Penanganan sampah organik dimulai dengan pemilahan sejak awal agar tidak tercampur dengan sampah lain. Jika tidak dikelola lebih lanjut, sampah ini sebaiknya dibuang ke tempat sampah khusus organik untuk memudahkan pengolahan di tingkat lanjutan. Alternatifnya, sampah organik dapat diolah melalui pengomposan atau biokonversi menggunakan mikroba atau larva BSF, yang membantu mempercepat dekomposisi dan mengubahnya menjadi pupuk atau pakan, sehingga mengurangi dampak lingkungan.",
+    "icon": "assets/icons/organic.png",
+    "objects": [
+      "Sisa Buah",
+      "Cangkang Telur"
+    ]
+  },
+  {
+    "id": "plastik",
+    "name": "Plastik",
+    "description": "Sampah plastik adalah limbah sintetis berbahan polimer yang sangat sulit terurai secara alami, dengan waktu penguraian mencapai 100–500 tahun. Jika dibuang sembarangan, plastik dapat mencemari tanah, air, dan laut, serta membahayakan makhluk hidup.",
+    "handling" : "Pilah sampah plastik sejak awal dan buang ke tempat sampah khusus plastik. Jika tidak tersedia, cek kategori objek pada aplikasi untuk menentukan apakah sampah tersebut masuk ke kategori daur ulang atau residu, agar dapat ditangani dengan benar.",
+    "icon": "assets/icons/bottle.png",
+    "objects": [
+      1, 2, 3, 4, 5,6, 7, 8, 9, 10, 11, 12, 13
+    ]
+  },
+  {
+    "id": "kaca",
+    "name": "Kaca",
+    "description": "Sampah kaca adalah limbah yang terbuat dari material yang sangat sulit terurai secara alami dan dapat bertahan ratusan tahun di lingkungan. Kaca yang pecah atau terbelah berisiko tinggi menyebabkan cedera karena serpihannya yang tajam, serta mencemari lingkungan jika tidak dibuang dengan benar.",
+    "handling" : "Pilah sampah kaca sejak awal dan buang ke tempat sampah khusus kaca. Jika kaca terbelah menjadi potongan besar, seperti gelas yang patah, sebaiknya dibungkus dengan bahan pelindung dan dibuang ke tempat sampah residu. Jika tempat sampah khusus kaca tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat.",
+    "icon": "assets/icons/glass.png",
+    "objects": [
+      40, 41, 42, 43, 44
+    ]
+  },
+  {
+    "id": "kertas",
+    "name": "Kertas",
+    "description": "Sampah kertas adalah limbah yang berasal dari bahan alami, namun jika tidak dikelola dengan benar, dapat menumpuk dan mencemari lingkungan. Meskipun kertas terurai lebih cepat dibandingkan plastik atau kaca, jika tidak didaur ulang, produksi kertas dapat menyebabkan deforestasi dan meningkatkan beban sampah di TPA.",
+    "handling" : "Pilah sampah kertas sejak awal dan buang ke tempat sampah khusus kertas. Jika tempat sampah khusus kertas tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
+    "icon": "assets/icons/paper.png",
+    "objects": [
+      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+    ]
+  },
+  {
+    "id": "logam",
+    "name": "Logam",
+    "description": "SSampah logam adalah limbah yang sulit terurai dan dapat mencemari lingkungan jika tidak dikelola dengan benar. Meskipun logam murni dapat didaur ulang, jika tidak dikelola dengan baik, logam dapat menambah beban sampah di TPA dan merusak ekosistem.",
+    "handling" : "Pilah sampah logam sejak awal. Logam murni yang tidak terkontaminasi dapat didaur ulang, jadi buang ke tempat sampah khusus logam. Namun, jika logam terkontaminasi bahan kimia berbahaya, atau merupakan wadah yang mengandung bahan berbahaya (termasuk bahan berbahaya dan beracun/B3), serahkan ke pihak pengolah sampah yang berwenang. Jika tempat sampah khusus logam tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat.",
+    "icon": "assets/icons/metal.png",
+    "objects": [
+      25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
+    ]
+  },
+  {
+    "id": "e-waste",
+    "name": "E-Waste",
+    "description": "E-waste (sampah elektronik) adalah limbah yang berasal dari perangkat elektronik yang sudah tidak terpakai atau rusak, seperti ponsel, komputer, baterai, dan peralatan rumah tangga elektronik lainnya. E-waste berbahaya karena mengandung bahan kimia beracun dan logam berat yang dapat mencemari tanah dan air jika tidak dikelola dengan benar.",
+    "handling" : "Pilah sampah e-waste sejak awal dan serahkan ke tempat pengolahan atau titik daur ulang yang khusus menangani e-waste. Jangan membuang e-waste sembarangan, karena dapat membahayakan lingkungan dan kesehatan. Jika tempat pengolahan khusus e-waste tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat.",
+    "icon": "assets/icons/ewaste.png",
+    "objects": [
+      45, 46, 47, 48
+    ]
+  },
+  {
+    "id": "tekstil",
+    "name": "Tekstil",
+    "description": "Sampah tekstil adalah limbah yang berasal dari bahan kain, pakaian bekas, atau produk berbahan tekstil lainnya. Jika tidak dikelola dengan baik, tekstil dapat menumpuk di TPA dan membutuhkan waktu lama untuk terurai. Beberapa bahan tekstil juga mengandung zat kimia berbahaya, seperti pewarna dan bahan pengawet, yang bisa mencemari lingkungan.",
+    "handling" : "Pilah sampah tekstil sejak awal. Jika tekstil masih layak pakai, pertimbangkan untuk disumbangkan atau dijual kembali. Jika sudah tidak dapat digunakan, buang ke tempat sampah khusus tekstil atau daur ulang. Jika tempat sampah khusus tekstil tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
+    "icon": "assets/icons/textile.png",
+    "objects": [
+      "Kaos Bekas",
+      "Celana Jeans"
+    ]
+  },
+  {
+    "id": "karet",
+    "name": "Karet",
+    "description": "Sampah karet berasal dari bahan sintetis atau alam yang sangat sulit terurai di alam, dan bisa bertahan bertahun-tahun tanpa terdegradasi. Karet yang dibuang sembarangan dapat mencemari lingkungan dan membahayakan ekosistem, terutama jika terurai menjadi serpihan kecil yang sulit diolah.",
+    "handling" : "Pilah sampah karet sejak awal dan buang ke tempat sampah khusus karet. Jika tempat sampah khusus karet tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu. Beberapa jenis karet, seperti ban bekas, sebaiknya diserahkan ke fasilitas pengolahan khusus.",
+    "icon": "assets/icons/rubber.png",
+    "objects": [
+      "Ban Bekas",
+      "Sandal Rusak"
+    ]
+  },
+  {
+    "id": "residu",
+    "name": "Residu",
+    "description": "Sampah residu adalah limbah yang tidak dapat didaur ulang atau diolah lebih lanjut dengan cara biasa. Sampah ini sering kali berasal dari material yang telah terkontaminasi atau tidak memiliki nilai daur ulang, dan biasanya berakhir di tempat pembuangan akhir (TPA). Sampah residu bisa mencemari lingkungan jika tidak ditangani dengan benar.",
+    "handling" : "Pilah sampah residu sejak awal dan pastikan untuk membuangnya ke tempat sampah khusus residu. Jika sampah tidak termasuk dalam kategori daur ulang atau tidak dapat diidentifikasi, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat. Hindari membuang sampah yang dapat didaur ulang ke tempat sampah residu untuk mengurangi beban TPA.",
+    "icon": "assets/icons/residu.png",
+    "objects": [
+      "Popok Bekas",
+      "Sisa Minyak Goreng"
+    ]
+  }
+],
+  "waste_items": [
+    {
+      "id": 1,
+      "name": "Botol PET bening (air mineral)",
+      "desc": "Botol plastik transparan berbahan PET (Polyethylene Terephthalate) yang umum digunakan untuk kemasan air mineral. Dapat didaur ulang menjadi serat polyester atau kemasan baru.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Botol Aqua", "Botol air minum", "Botol plastik transparan"],
+      "handling": "Dibuang ke tempat sampah daur ulang plastik. Jika tidak ada, buang di tempat sampah anorganik setelah diremukkan untuk menghemat ruang.",
+      "reuse_ideas": [
+        {"title": "Pot Tanaman dari Botol PET", "youtube_link": "https://youtu.be/dummy1"},
+        {"title": "Celengan dari Botol Plastik", "youtube_link": "https://youtu.be/dummy2"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Botol PET berwarna (soft drink)",
+      "desc": "Botol plastik berwarna berbahan PET yang biasa digunakan untuk minuman ringan. Warna mempengaruhi nilai daur ulang tetapi tetap bisa diproses.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Botol soft drink", "Botol minuman berwarna"],
+      "handling": "Dibuang ke tempat sampah daur ulang plastik. Cuci bersih terlebih dahulu untuk menghilangkan sisa minuman.",
+      "reuse_ideas": [
+        {"title": "Tempat Alat Tulis dari Botol", "youtube_link": "https://youtu.be/dummy3"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Kantong plastik (HDPE+LDPE)",
+      "desc": "Kantong belanja plastik baik yang tebal (HDPE) maupun tipis (LDPE). Sulit terurai tetapi dapat didaur ulang menjadi bahan bangunan atau tas.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Kresek", "Plastic bag", "Kantong belanja"],
+      "handling": "Kumpulkan dalam satu kantong besar sebelum dibuang ke tempat sampah daur ulang plastik. Hindari membuang secara tercecer.",
+      "reuse_ideas": [
+        {"title": "Tas Anyaman dari Kantong Plastik", "youtube_link": "https://youtu.be/dummy4"},
+        {"title": "Bantal dari Kantong Plastik", "youtube_link": "https://youtu.be/dummy5"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Gelas plastik PP (cup minuman)",
+      "desc": "Gelas sekali pakai berbahan Polypropylene (PP) yang tahan panas. Dapat didaur ulang menjadi ember atau pot tanaman.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Gelas minuman", "Cup plastik", "Gelas PP"],
+      "handling": "Buang ke tempat sampah daur ulang plastik. Bersihkan dari sisa minuman dan lepaskan label kertas jika ada.",
+      "reuse_ideas": [
+        {"title": "Pot Mini dari Gelas Plastik", "youtube_link": "https://youtu.be/dummy6"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sedotan plastik",
+      "desc": "Sedotan berbahan plastik sekali pakai yang sulit terurai. Lebih baik diganti dengan sedotan stainless atau bambu.",
+      "recyclable": false,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Straw plastik", "Sedotan minuman"],
+      "handling": "Karena ukurannya kecil dan sulit didaur ulang, sebaiknya dibuang di tempat sampah residu. Kurangi penggunaannya.",
+      "reuse_ideas": [
+        {"title": "Kerajinan dari Sedotan Plastik", "youtube_link": "https://youtu.be/dummy7"}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Kemasan multilayer (bungkus snack + kopi sachet)",
+      "desc": "Kemasan plastik berlapis aluminium untuk makanan ringan dan kopi instan. Sulit didaur ulang karena campuran material.",
+      "recyclable": false,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Bungkus mie instan", "Kemasan kopi sachet", "Plastik snack"],
+      "handling": "Termasuk sampah residu. Buang di tempat sampah umum setelah dipotong kecil untuk mengurangi volume.",
+      "reuse_ideas": []
+    },
+    {
+      "id": 7,
+      "name": "Botol sabun/shampoo (HDPE)",
+      "desc": "Botol plastik bekas sabun atau shampoo berbahan HDPE. Lebih tebal dari PET dan dapat didaur ulang jika bersih.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Botol sampo", "Botol sabun cair", "Botol HDPE"],
+      "handling": "Cuci bersih dan buang ke tempat sampah daur ulang plastik. Lepaskan pompa atau tutup yang bukan dari HDPE.",
+      "reuse_ideas": [
+        {"title": "Tempat Sikat Gigi dari Botol Shampoo", "youtube_link": "https://youtu.be/dummy8"}
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Plastik bubble wrap",
+      "desc": "Plastik gelembung pelindung barang. Dapat digunakan ulang atau didaur ulang di fasilitas tertentu.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Bubble wrap", "Plastik gelembung"],
+      "handling": "Kumpulkan dan bawa ke pusat daur ulang plastik. Jika tidak memungkinkan, buang di tempat sampah anorganik.",
+      "reuse_ideas": [
+        {"title": "Bantal dari Bubble Wrap", "youtube_link": "https://youtu.be/dummy9"}
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Styrofoam makanan",
+      "desc": "Kemasan makanan berbahan styrofoam yang sulit terurai dan berbahaya jika terbakar. Tidak dapat didaur ulang.",
+      "recyclable": false,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Gabus putih", "Styrofoam", "Kemasan makanan"],
+      "handling": "Termasuk sampah residu. Buang di tempat sampah umum. Hindari membakar karena menghasilkan racun.",
+      "reuse_ideas": []
+    },
+    {
+      "id": 10,
+      "name": "Plastik mika (kemasan hadiah)",
+      "desc": "Plastik mika kaku untuk kemasan produk atau hadiah. Sulit didaur ulang karena campuran bahan.",
+      "recyclable": false,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Plastik kemasan", "Mika plastik"],
+      "handling": "Bisa digunakan ulang sebagai pembungkus. Jika rusak, buang di tempat sampah anorganik.",
+      "reuse_ideas": [
+        {"title": "Tempat Pensil dari Plastik Mika", "youtube_link": "https://youtu.be/dummy10"}
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Botol minyak goreng PET",
+      "desc": "Botol plastik bekas minyak goreng berbahan PET. Dapat didaur ulang jika dicuci bersih dari sisa minyak.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Botol minyak", "Jerigen minyak"],
+      "handling": "Cuci bersih dengan sabun untuk menghilangkan sisa minyak sebelum dibuang ke tempat sampah daur ulang plastik.",
+      "reuse_ideas": [
+        {"title": "Pot Tanaman dari Botol Minyak", "youtube_link": "https://youtu.be/dummy11"}
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Wadah yogurt PP",
+      "desc": "Kemasan yogurt berbahan Polypropylene (PP). Dapat didaur ulang menjadi produk plastik baru.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Cup yogurt", "Wadah PP"],
+      "handling": "Bersihkan dari sisa yogurt dan buang ke tempat sampah daur ulang plastik. Lepaskan tutup aluminium jika ada.",
+      "reuse_ideas": [
+        {"title": "Pot Kecil dari Wadah Yogurt", "youtube_link": "https://youtu.be/dummy12"}
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Mainan plastik rusak",
+      "desc": "Mainan anak-anak berbahan plastik yang sudah rusak. Sulit didaur ulang karena campuran material.",
+      "recyclable": false,
+      "hazardous": false,
+      "category": "plastic",
+      "alias": ["Mainan anak rusak", "Plastik mainan"],
+      "handling": "Buang di tempat sampah residu. Jika masih bisa diperbaiki, pertimbangkan untuk disumbangkan.",
+      "reuse_ideas": [
+        {"title": "Potongan Mainan untuk Kerajinan", "youtube_link": "https://youtu.be/dummy13"}
+      ]
+    },
+
+
+        {
+          "id": 14,
+          "name": "Kertas HVS bekas",
+          "desc": "Kertas putih hasil print atau fotokopi yang sudah tidak terpakai. Mudah didaur ulang menjadi kertas baru.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Kertas printer", "Kertas kantor", "Kertas fotokopi"],
+          "handling": "Kumpulkan dalam keadaan kering dan bersih. Buang di tempat sampah kertas daur ulang. Hindari tercampur dengan sampah basah.",
+          "reuse_ideas": [
+            {"title": "Membuat Buku Catatan dari Kertas Bekas", "youtube_link": "https://youtu.be/dummy14"},
+            {"title": "Kerajinan Origami dari Kertas Bekas", "youtube_link": "https://youtu.be/dummy15"}
+          ]
+        },
+        {
+          "id": 15,
+          "name": "Kardus cokelat (kemasan)",
+          "desc": "Kardus kemasan berbahan kertas tebal berwarna cokelat. Mudah didaur ulang jika dalam keadaan bersih.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Kardus paket", "Box karton", "Kotak kardus"],
+          "handling": "Ratakan untuk menghemat ruang. Pastikan bersih dari sisa makanan atau minyak sebelum dibuang ke tempat sampah kertas.",
+          "reuse_ideas": [
+            {"title": "Rak Buku dari Kardus Bekas", "youtube_link": "https://youtu.be/dummy16"},
+            {"title": "Rumah Kucing dari Kardus", "youtube_link": "https://youtu.be/dummy17"}
+          ]
+        },
+        {
+          "id": 16,
+          "name": "Koran bekas",
+          "desc": "Surat kabar bekas yang sudah dibaca. Termasuk bahan kertas daur ulang berkualitas rendah.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Surat kabar bekas", "Koran lama"],
+          "handling": "Ikat rapi atau masukkan ke dalam kardus sebelum dibuang ke tempat sampah kertas daur ulang.",
+          "reuse_ideas": [
+            {"title": "Bungkus Kado dari Koran Bekas", "youtube_link": "https://youtu.be/dummy18"},
+            {"title": "Media Tanam Hidroponik dari Koran", "youtube_link": "https://youtu.be/dummy19"}
+          ]
+        },
+        {
+          "id": 17,
+          "name": "Majalah bekas",
+          "desc": "Majalah lama dengan berbagai jenis kertas dan lapisan mengilap. Tetap bisa didaur ulang meski lebih kompleks.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Tabioid bekas", "Majalah lama"],
+          "handling": "Lepaskan sampul plastik jika ada. Kumpulkan terpisah dari kertas biasa karena membutuhkan proses daur ulang berbeda.",
+          "reuse_ideas": [
+            {"title": "Kolase Seni dari Majalah Bekas", "youtube_link": "https://youtu.be/dummy20"},
+            {"title": "Buku Scrap dari Majalah", "youtube_link": "https://youtu.be/dummy21"}
+          ]
+        },
+        {
+          "id": 18,
+          "name": "Kertas kado",
+          "desc": "Kertas pembungkus hadiah yang sering mengandung lapisan plastik atau foil. Sulit didaur ulang jika bercampur material.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Pembungkus kado", "Kertas hadiah"],
+          "handling": "Jika polos tanpa lapisan plastik, bisa dibuang dengan kertas daur ulang. Jika mengilap/berlapis, masukkan ke residu.",
+          "reuse_ideas": [
+            {"title": "Bungkus Kado Ulang dari Kertas Bekas", "youtube_link": "https://youtu.be/dummy22"}
+          ]
+        },
+        {
+          "id": 19,
+          "name": "Kertas nasi",
+          "desc": "Kertas pembungkus makanan yang sering terkontaminasi minyak dan sisa makanan.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Pembungkus makanan", "Kertas minyak"],
+          "handling": "Termasuk sampah residu karena terkontaminasi. Buang di tempat sampah umum setelah dilipat rapat.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 20,
+          "name": "Buku tulis bekas",
+          "desc": "Buku catatan atau buku pelajaran yang sudah tidak terpakai. Dapat didaur ulang jika bersih dari sampul plastik.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Buku catatan bekas", "Notebook bekas"],
+          "handling": "Lepaskan spiral logam dan sampul plastik sebelum dibuang ke tempat sampah kertas. Halaman yang masih kosong bisa digunakan ulang.",
+          "reuse_ideas": [
+            {"title": "Buku Catatan Baru dari Halaman Kosong", "youtube_link": "https://youtu.be/dummy23"}
+          ]
+        },
+        {
+          "id": 21,
+          "name": "Karton susu Tetra Pak",
+          "desc": "Kemasan minuman berbahan campuran kertas, plastik, dan aluminium. Sulit didaur ulang di fasilitas biasa.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Tetra Pak", "Kemasan susu kotak", "Karton minuman"],
+          "handling": "Cuci bersih dan keringkan. Kumpulkan terpisah untuk dibawa ke bank sampah atau dropbox khusus Tetra Pak jika tersedia.",
+          "reuse_ideas": [
+            {"title": "Dompet dari Kemasan Tetra Pak", "youtube_link": "https://youtu.be/dummy24"}
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Dus minuman kotak",
+          "desc": "Kemasan minuman berbahan kertas tebal dengan lapisan khusus. Mirip Tetra Pak tetapi komposisi berbeda.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Kemasan jus kotak", "Dus minuman"],
+          "handling": "Buang di tempat sampah residu. Jika ada program daur ulang khusus, ikuti instruksi pemisahannya.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 23,
+          "name": "Kertas thermal (struk)",
+          "desc": "Kertas struk belanja atau ATM yang mengandung BPA berbahaya. Tidak bisa didaur ulang dengan kertas biasa.",
+          "recyclable": false,
+          "hazardous": true,
+          "category": "paper",
+          "alias": ["Struk belanja", "Kertas fax", "Kertas ATM"],
+          "handling": "Termasuk sampah B3. Kumpulkan dan serahkan ke tempat pengolahan sampah B3. Jangan dibakar karena mengeluarkan racun.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 24,
+          "name": "Kertas amplas",
+          "desc": "Kertas yang dilapisi bahan abrasif untuk menggosok permukaan. Tidak dapat didaur ulang dengan kertas biasa.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "paper",
+          "alias": ["Amplas bekas", "Kertas gosok"],
+          "handling": "Buang di tempat sampah residu. Bungkus rapat jika masih memiliki partikel tajam untuk keselamatan petugas kebersihan.",
+          "reuse_ideas": []
+        },
+
+   
+        {
+          "id": 25,
+          "name": "Kaleng aluminium minuman",
+          "desc": "Kaleng minuman ringan berbahan aluminium yang mudah didaur ulang tanpa kehilangan kualitas material.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Kaleng soda", "Kaleng minuman", "Kaleng bir"],
+          "handling": "Bersihkan dari sisa minuman, remukkan untuk menghemat ruang. Buang ke tempat sampah logam daur ulang atau bank sampah.",
+          "reuse_ideas": [
+            {"title": "Celengan dari Kaleng Bekas", "youtube_link": "https://youtu.be/dummy25"},
+            {"title": "Pot Tanaman dari Kaleng", "youtube_link": "https://youtu.be/dummy26"}
+          ]
+        },
+        {
+          "id": 26,
+          "name": "Kaleng baja (sarden/susu)",
+          "desc": "Kaleng makanan berbahan baja dengan lapisan timah anti karat. Dapat didaur ulang setelah diproses khusus.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Kaleng makanan", "Kaleng ikan", "Kaleng susu"],
+          "handling": "Cuci bersih dan keringkan. Lepaskan label kertas jika memungkinkan. Buang ke tempat sampah logam.",
+          "reuse_ideas": [
+            {"title": "Tempat Pensil dari Kaleng", "youtube_link": "https://youtu.be/dummy27"}
+          ]
+        },
+        {
+          "id": 27,
+          "name": "Panci aluminium rusak",
+          "desc": "Peralatan dapur berbahan aluminium yang sudah tidak terpakai. Memiliki nilai daur ulang tinggi.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Panci bekas", "Aluminium rusak"],
+          "handling": "Bersihkan dari sisa makanan. Jika besar, bawa langsung ke pengepul logam. Jangan dibuang di tempat sampah umum.",
+          "reuse_ideas": [
+            {"title": "Pot Tanaman dari Panci Bekas", "youtube_link": "https://youtu.be/dummy28"}
+          ]
+        },
+        {
+          "id": 28,
+          "name": "Sendok/garpu stainless",
+          "desc": "Peralatan makan berbahan stainless steel yang sudah tidak terpakai. Dapat dilebur dan didaur ulang.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Peralatan makan logam", "Cutlery bekas"],
+          "handling": "Kumpulkan dalam wadah terpisah. Bawa ke pengepul logam atau tempat sampah daur ulang logam.",
+          "reuse_ideas": [
+            {"title": "Kerajinan Logam dari Sendok Bekas", "youtube_link": "https://youtu.be/dummy29"}
+          ]
+        },
+        {
+          "id": 29,
+          "name": "Tutup botol metal",
+          "desc": "Tutup botol berbahan logam campuran. Ukurannya kecil tetapi tetap bernilai daur ulang.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Tutup kaleng", "Tutup metal"],
+          "handling": "Kumpulkan dalam wadah tertutup hingga cukup banyak sebelum dibuang ke tempat sampah logam.",
+          "reuse_ideas": [
+            {"title": "Magnet Kulkas dari Tutup Botol", "youtube_link": "https://youtu.be/dummy30"}
+          ]
+        },
+        {
+          "id": 30,
+          "name": "Kawat tembaga",
+          "desc": "Kabel atau kawat berbahan tembaga murni. Memiliki nilai ekonomis tinggi untuk didaur ulang.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Kabel tembaga", "Tembaga bekas"],
+          "handling": "Pisahkan dari plastik pembungkus jika memungkinkan. Bawa langsung ke pengepul logam untuk mendapatkan nilai terbaik.",
+          "reuse_ideas": [
+            {"title": "Kerajinan Tangan dari Kawat Tembaga", "youtube_link": "https://youtu.be/dummy31"}
+          ]
+        },
+        {
+          "id": 31,
+          "name": "Kaleng cat (berisi sisa)",
+          "desc": "Kaleng bekas cat yang masih mengandung sisa bahan kimia. Termasuk limbah B3 jika berisi residu cat.",
+          "recyclable": false,
+          "hazardous": true,
+          "category": "metal",
+          "alias": ["Kaleng cat bekas", "Kaleng vernis"],
+          "handling": "Jangan dibuang sembarangan. Keringkan sisa cat di tempat terbuka, lalu bawa ke tempat pengolahan limbah B3.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 32,
+          "name": "Rangka payung",
+          "desc": "Kerangka payung berbahan logam campuran. Sulit dipisahkan sehingga nilai daur ulangnya rendah.",
+          "recyclable": false,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Payung rusak", "Kerangka payung"],
+          "handling": "Buang di tempat sampah logam. Jika ada program daur ulang khusus, pisahkan kain dan logamnya.",
+          "reuse_ideas": [
+            {"title": "Gantungan Baju dari Rangka Payung", "youtube_link": "https://youtu.be/dummy32"}
+          ]
+        },
+        {
+          "id": 33,
+          "name": "Perlengkapan dapur logam",
+          "desc": "Berbagai peralatan dapur berbahan logam seperti saringan, spatula, atau cetakan kue yang sudah rusak.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Peralatan dapur bekas", "Alat masak logam"],
+          "handling": "Bersihkan dari sisa makanan. Kumpulkan dan bawa ke pengepul logam atau tempat daur ulang.",
+          "reuse_ideas": [
+            {"title": "Hiasan Dinding dari Alat Dapur Bekas", "youtube_link": "https://youtu.be/dummy33"}
+          ]
+        },
+        {
+          "id": 34,
+          "name": "Seng bekas",
+          "desc": "Lembaran seng atap atau bahan bangunan yang sudah tidak terpakai. Dapat didaur ulang tetapi bernilai rendah.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Atap seng bekas", "Lembaran seng"],
+          "handling": "Potong kecil jika memungkinkan untuk memudahkan transportasi. Bawa langsung ke pengepul logam.",
+          "reuse_ideas": [
+            {"title": "Pot Tanaman dari Seng Bekas", "youtube_link": "https://youtu.be/dummy34"}
+          ]
+        },
+        {
+          "id": 35,
+          "name": "Peniti/paku",
+          "desc": "Benda logam kecil berbahan baja atau besi. Sulit didaur ulang secara individual tetapi tetap bernilai.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Logam kecil", "Paku bekas"],
+          "handling": "Kumpulkan dalam wadah tertutup untuk menghindari kecelakaan. Jika cukup banyak, bawa ke pengepul logam.",
+          "reuse_ideas": [
+            {"title": "Karya Seni dari Paku Bekas", "youtube_link": "https://youtu.be/dummy35"}
+          ]
+        },
+        {
+          "id": 36,
+          "name": "Kaleng aerosol",
+          "desc": "Kaleng semprot yang biasanya berisi sisa bahan kimia. Termasuk limbah B3 karena tekanan dan kandungannya.",
+          "recyclable": false,
+          "hazardous": true,
+          "category": "metal",
+          "alias": ["Kaleng semprot", "Spray can"],
+          "handling": "Jangan ditusuk atau dibakar. Bawa ke tempat pengolahan limbah B3 dalam keadaan utuh.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 37,
+          "name": "Tutup kaleng (ring pull)",
+          "desc": "Tutup kaleng minuman sistem buka cincin. Terbuat dari aluminium campuran yang bisa didaur ulang.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Tutup ring pull", "Tutup kaleng minuman"],
+          "handling": "Kumpulkan dalam wadah kecil sebelum dibuang ke tempat sampah logam. Pastikan tidak ada bagian yang tajam.",
+          "reuse_ideas": [
+            {"title": "Gantungan Kunci dari Tutup Kaleng", "youtube_link": "https://youtu.be/dummy36"}
+          ]
+        },
+        {
+          "id": 38,
+          "name": "Kabel listrik",
+          "desc": "Kabel bekas instalasi listrik yang mengandung tembaga dan aluminium. Memiliki nilai daur ulang tinggi.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Kabel bekas", "Kabel elektronik"],
+          "handling": "Bawa langsung ke pengepul logam. Jika bisa, pisahkan kulit plastik dan logamnya untuk nilai lebih tinggi.",
+          "reuse_ideas": []
+        },
+        {
+          "id": 39,
+          "name": "Besi beton",
+          "desc": "Batang besi bekas konstruksi bangunan. Dapat dilebur dan didaur ulang menjadi produk besi baru.",
+          "recyclable": true,
+          "hazardous": false,
+          "category": "metal",
+          "alias": ["Besi bangunan", "Batang besi"],
+          "handling": "Kumpulkan di tempat khusus. Butuh alat berat untuk transportasi ke pabrik daur ulang.",
+          "reuse_ideas": []
+        },
+    {
+      "id": 40,
+      "name": "Botol kaca",
+      "desc": "Botol berbahan kaca yang umum digunakan untuk kemasan saus, sirup, minuman ringan, dan alkohol. Umumnya dapat didaur ulang jika tidak pecah dan bersih dari sisa isi.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "glass",
+      "alias": ["Botol sirup", "Botol alkohol", "Botol kaca minuman"],
+      "handling": "Bersihkan dari sisa isi lalu masukkan ke tempat sampah kaca atau daur ulang. Jangan pecahkan agar mudah diproses.",
+      "reuse_ideas": [
+        {"title": "Vas Bunga dari Botol Kaca", "youtube_link": "https://youtu.be/dummy3"},
+        {"title": "Lampu Gantung dari Botol Bekas", "youtube_link": "https://youtu.be/dummy4"}
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Pecahan kaca",
+      "desc": "Potongan atau pecahan kaca dari jendela atau lembaran kaca. Berbahaya karena tajam dan tidak selalu diterima di fasilitas daur ulang.",
+      "recyclable": false,
+      "hazardous": true,
+      "category": "glass",
+      "alias": ["Kaca pecah", "Kaca jendela pecah"],
+      "handling": "Bungkus pecahan kaca dengan tebal (koran/kardus), beri label 'pecah belah', dan buang di tempat sampah residu atau anorganik.",
+      "reuse_ideas": [
+        {"title": "Mozaik Dekoratif dari Pecahan Kaca", "youtube_link": "https://youtu.be/dummy5"}
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Gelas kaca pecah",
+      "desc": "Gelas minum berbahan kaca yang telah pecah. Tidak cocok untuk daur ulang karena jenis kaca berbeda dari botol kaca.",
+      "recyclable": false,
+      "hazardous": true,
+      "category": "glass",
+      "alias": ["Gelas pecah", "Kaca minum pecah"],
+      "handling": "Lindungi dengan koran atau kardus, beri tanda peringatan, lalu buang ke tempat sampah residu.",
+      "reuse_ideas": [
+        {"title": "Kerajinan Mozaik dari Kaca Pecah", "youtube_link": "https://youtu.be/dummy6"}
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Stoples kaca",
+      "desc": "Wadah kaca bertutup yang umum digunakan untuk menyimpan makanan atau bumbu. Dapat didaur ulang atau digunakan kembali.",
+      "recyclable": true,
+      "hazardous": false,
+      "category": "glass",
+      "alias": ["Toples kaca", "Wadah kaca bumbu"],
+      "handling": "Bersihkan dan pisahkan tutup dari wadah. Masukkan ke tempat sampah daur ulang kaca jika tidak digunakan ulang.",
+      "reuse_ideas": [
+        {"title": "Wadah Bumbu dari Stoples Bekas", "youtube_link": "https://youtu.be/dummy7"},
+        {"title": "DIY Lilin Aromaterapi", "youtube_link": "https://youtu.be/dummy8"}
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Piring kaca",
+      "desc": "Piring makan berbahan kaca atau keramik kaca. Tidak dapat didaur ulang dan berbahaya jika pecah.",
+      "recyclable": false,
+      "hazardous": true,
+      "category": "glass",
+      "alias": ["Piring pecah belah", "Piring beling"],
+      "handling": "Jika pecah, bungkus aman sebelum dibuang ke tempat sampah residu. Jika utuh, bisa digunakan ulang atau didonasikan.",
+      "reuse_ideas": [
+        {"title": "Dekorasi Taman dari Piring Kaca Bekas", "youtube_link": "https://youtu.be/dummy9"}
+      ]
+    },
+
+      {
+        "id": 45,
+        "name": "Lampu (neon, LED, bohlam)",
+        "desc": "Lampu penerangan seperti neon, bohlam pijar, dan sebagian besar LED mengandung bahan berbahaya seperti merkuri dan tidak boleh dibuang sembarangan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Lampu neon", "Lampu bohlam", "Lampu LED"],
+        "handling": "Simpan dalam wadah aman dan serahkan ke fasilitas daur ulang atau dropbox e-waste resmi. Jangan dibuang ke tempat sampah biasa.",
+        "reuse_ideas": [
+          {"title": "Hiasan Lampu Bekas (tanpa isi merkuri)", "youtube_link": "https://youtu.be/dummy10"}
+        ]
+      },
+      {
+        "id": 46,
+        "name": "Baterai AA/AAA",
+        "desc": "Baterai silinder kecil yang umum digunakan untuk alat elektronik rumah tangga. Mengandung logam berat dan berbahaya jika dibuang sembarangan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Baterai kecil", "Baterai remote", "Baterai dry cell"],
+        "handling": "Kumpulkan dalam wadah tertutup dan bawa ke dropbox e-waste atau fasilitas pengelolaan limbah B3.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 47,
+        "name": "Baterai lithium (HP)",
+        "desc": "Baterai isi ulang yang terdapat dalam ponsel dan perangkat elektronik portabel. Dapat meledak jika rusak atau ditusuk.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Baterai HP", "Baterai Li-ion", "Baterai gadget"],
+        "handling": "Lepas dari perangkat dan simpan dalam wadah tahan api. Serahkan ke pusat daur ulang resmi atau fasilitas e-waste.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 48,
+        "name": "Elektronik rusak (PCB)",
+        "desc": "Komponen papan sirkuit elektronik (PCB) dari perangkat rusak. Mengandung logam berat dan material beracun.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Papan sirkuit", "Elektronik bekas", "Komponen PCB"],
+        "handling": "Kumpulkan secara terpisah dan serahkan ke fasilitas e-waste. Jangan dibakar atau dibuang sembarangan.",
+        "reuse_ideas": [
+          {"title": "Kerajinan Hias dari PCB Bekas", "youtube_link": "https://youtu.be/dummy11"}
+        ]
+      },
+      {
+        "id": 49,
+        "name": "Aki mobil/motor",
+        "desc": "Baterai besar untuk kendaraan bermotor. Mengandung asam sulfat dan timbal yang sangat berbahaya bagi lingkungan.",
+        "recyclable": true,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Aki bekas", "Baterai mobil", "Aki kendaraan"],
+        "handling": "Kembalikan ke penjual aki atau fasilitas resmi untuk didaur ulang secara aman.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 50,
+        "name": "Obat kadaluarsa",
+        "desc": "Obat-obatan yang sudah melewati tanggal kedaluwarsa tidak boleh dikonsumsi dan berpotensi mencemari lingkungan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Obat expired", "Obat bekas", "Obat lama"],
+        "handling": "Kembalikan ke apotek atau posko pengumpulan limbah medis. Jangan dibuang ke toilet atau sungai.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 51,
+        "name": "Termometer raksa",
+        "desc": "Alat pengukur suhu yang mengandung merkuri, logam cair berbahaya yang sangat beracun jika bocor.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Termometer merkuri", "Termometer lama"],
+        "handling": "Simpan dalam wadah kaca/plastik tertutup. Serahkan ke fasilitas limbah B3 atau e-waste.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 52,
+        "name": "Cat latex bekas",
+        "desc": "Sisa cat berbasis air yang mengandung senyawa kimia yang bisa mencemari tanah dan air jika dibuang sembarangan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Cat bekas", "Cat tembok sisa"],
+        "handling": "Tutup rapat dan buang di fasilitas limbah berbahaya atau bawa ke TPS yang menerima bahan kimia rumah tangga.",
+        "reuse_ideas": [
+          {"title": "Mengecat Pot Tanaman dari Kaleng Bekas", "youtube_link": "https://youtu.be/dummy12"}
+        ]
+      },
+      {
+        "id": 53,
+        "name": "Pestisida",
+        "desc": "Bahan kimia yang digunakan untuk membasmi hama. Sangat beracun bagi manusia, hewan, dan lingkungan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "e-waste",
+        "alias": ["Racun serangga", "Racun tikus", "Obat hama"],
+        "handling": "Jangan buang ke saluran air. Serahkan ke posko limbah B3 atau instansi lingkungan hidup setempat.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 54,
+        "name": "Pakaian bekas",
+        "desc": "Pakaian tidak terpakai dari berbagai bahan seperti katun dan polyester. Dapat digunakan kembali, didonasikan, atau diolah ulang menjadi produk lain.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Baju bekas", "Kaos lama", "Pakaian lama"],
+        "handling": "Jika masih layak pakai, sumbangkan. Jika rusak, manfaatkan sebagai lap atau kerajinan tekstil.",
+        "reuse_ideas": [
+          {"title": "Tas Belanja dari Kaos Bekas", "youtube_link": "https://youtu.be/dummy13"},
+          {"title": "Keset dari Baju Lama", "youtube_link": "https://youtu.be/dummy14"}
+        ]
+      },
+      {
+        "id": 55,
+        "name": "Sepatu bekas",
+        "desc": "Sepatu yang terbuat dari kain, kulit sintetis, atau karet. Bisa didonasikan jika masih layak pakai, atau diolah ulang secara kreatif.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Sepatu lama", "Sneakers bekas", "Sepatu rusak"],
+        "handling": "Sumbangkan jika masih layak. Jika tidak, manfaatkan bagian sol/kain untuk kerajinan.",
+        "reuse_ideas": [
+          {"title": "Pot Tanaman dari Sepatu Bekas", "youtube_link": "https://youtu.be/dummy15"}
+        ]
+      },
+      {
+        "id": 56,
+        "name": "Tas kain",
+        "desc": "Tas berbahan kain seperti kanvas atau polyester. Tahan lama dan dapat digunakan ulang berkali-kali.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Totebag", "Tas belanja kain"],
+        "handling": "Gunakan kembali sebagai pengganti tas plastik. Jika rusak, jahit ulang atau ubah fungsinya.",
+        "reuse_ideas": [
+          {"title": "Dompet dari Tas Rusak", "youtube_link": "https://youtu.be/dummy16"}
+        ]
+      },
+      {
+        "id": 57,
+        "name": "Kain perca",
+        "desc": "Potongan kain sisa dari produksi pakaian atau kerajinan. Dapat dimanfaatkan sebagai bahan patchwork atau isian.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Sisa kain", "Kain kecil"],
+        "handling": "Kumpulkan dan gunakan untuk kerajinan atau penambal pakaian.",
+        "reuse_ideas": [
+          {"title": "Bantal dari Kain Perca", "youtube_link": "https://youtu.be/dummy17"}
+        ]
+      },
+      {
+        "id": 58,
+        "name": "Selimut wol",
+        "desc": "Selimut berbahan wol atau fleece yang hangat dan tahan lama. Bisa digunakan ulang atau didonasikan.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Selimut lama", "Selimut bekas"],
+        "handling": "Donasikan jika masih layak. Jika tidak, bisa dipotong untuk dijadikan alas duduk atau alas hewan peliharaan.",
+        "reuse_ideas": [
+          {"title": "Alas Duduk dari Selimut Bekas", "youtube_link": "https://youtu.be/dummy18"}
+        ]
+      },
+      {
+        "id": 59,
+        "name": "Karpet nilon",
+        "desc": "Karpet berbahan serat sintetis seperti nilon. Sulit didaur ulang namun bisa digunakan ulang jika masih layak.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Karpet sintetis", "Karpet rumah"],
+        "handling": "Gunakan ulang sebagai alas di area lain atau donasikan. Jika rusak, buang di sampah residu.",
+        "reuse_ideas": [
+          {"title": "Alas Main Anak dari Karpet Bekas", "youtube_link": "https://youtu.be/dummy19"}
+        ]
+      },
+      {
+        "id": 60,
+        "name": "Sarung tangan",
+        "desc": "Sarung tangan berbahan kain, wol, atau kulit sintetis. Bisa didaur ulang jika berbahan kain dan bersih.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Sarung tangan lama", "Sarung tangan bekas"],
+        "handling": "Cuci bersih dan gunakan ulang. Bisa juga dimanfaatkan sebagai lap atau bahan kerajinan.",
+        "reuse_ideas": [
+          {"title": "Boneka Jari dari Sarung Tangan", "youtube_link": "https://youtu.be/dummy20"}
+        ]
+      },
+      {
+        "id": 61,
+        "name": "Jeans rusak",
+        "desc": "Celana atau jaket jeans yang sudah tidak layak pakai. Bahan denim sangat kuat dan cocok untuk daur ulang kreatif.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "textile",
+        "alias": ["Celana jeans", "Denim bekas"],
+        "handling": "Gunting bagian yang masih bagus dan manfaatkan untuk kerajinan atau aksesori.",
+        "reuse_ideas": [
+          {"title": "Tempat Pensil dari Celana Jeans", "youtube_link": "https://youtu.be/dummy21"},
+          {"title": "Tas Mini dari Kain Denim", "youtube_link": "https://youtu.be/dummy22"}
+        ]
+      },
+      {
+        "id": 62,
+        "name": "Popok sekali pakai",
+        "desc": "Popok berbahan plastik dan serat sintetis yang menyerap cairan. Tidak dapat didaur ulang dan tergolong residu.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "residue",
+        "alias": ["Popok bayi", "Diapers", "Popok bekas"],
+        "handling": "Buang dalam kantong tertutup untuk menghindari pencemaran. Masukkan ke tempat sampah residu.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 63,
+        "name": "Pembalut wanita",
+        "desc": "Produk kebersihan wanita sekali pakai berbahan plastik dan bahan penyerap. Tidak dapat didaur ulang.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "residue",
+        "alias": ["Pembalut bekas", "Sanitary pad", "Softex"],
+        "handling": "Bungkus rapi dalam plastik atau kertas sebelum dibuang ke sampah residu.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 64,
+        "name": "Tisu basah",
+        "desc": "Tisu sekali pakai yang mengandung serat sintetis dan cairan pembersih. Tidak dapat larut dan sulit terurai.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "residue",
+        "alias": ["Tisu lembab", "Tisu pembersih wajah"],
+        "handling": "Jangan dibuang ke toilet. Masukkan ke tempat sampah residu.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 65,
+        "name": "Puntung rokok",
+        "desc": "Sisa rokok yang mengandung filter plastik dan zat kimia beracun. Tidak dapat didaur ulang dan sangat mencemari lingkungan.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "residue",
+        "alias": ["Sisa rokok", "Puntung", "Filter rokok"],
+        "handling": "Buang ke sampah residu setelah benar-benar padam.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 66,
+        "name": "Cotton bud",
+        "desc": "Alat pembersih kecil berbahan kapas dan batang plastik atau kertas. Ukurannya kecil dan mudah mencemari lingkungan jika tercecer.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "residue",
+        "alias": ["Korek kuping", "Kapas batang"],
+        "handling": "Buang ke tempat sampah residu dalam kantong tertutup.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 67,
+        "name": "Spons cuci piring",
+        "desc": "Alat pembersih berbahan busa sintetis. Tidak dapat didaur ulang dan cepat rusak karena sering basah.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "residue",
+        "alias": ["Spons dapur", "Busa cuci piring"],
+        "handling": "Buang ke tempat sampah residu setelah tidak layak pakai.",
+        "reuse_ideas": [
+          {"title": "Pembersih Noda Sepatu dari Spons Bekas", "youtube_link": "https://youtu.be/dummy23"}
+        ]
+      },
+      {
+        "id": 68,
+        "name": "Masker sekali pakai",
+        "desc": "Masker medis atau non-medis berbahan plastik dan serat sintetis. Tidak dapat didaur ulang dan berisiko menyebarkan kuman.",
+        "recyclable": false,
+        "hazardous": true,
+        "category": "residue",
+        "alias": ["Masker medis", "Masker biru", "Masker bekas"],
+        "handling": "Gunting sebelum dibuang dan masukkan ke kantong tertutup. Buang ke tempat sampah residu.",
+        "reuse_ideas": []
+      },
+      {
+        "id": 69,
+        "name": "Sisa sayuran",
+        "desc": "Bagian sayuran yang tidak dikonsumsi seperti batang, kulit, atau potongan sisa. Dapat dijadikan kompos atau pakan ternak.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "organic",
+        "alias": ["Limbah dapur sayuran", "Potongan sayur"],
+        "handling": "Kumpulkan dalam wadah kompos. Jika tidak membuat kompos, buang ke sampah organik.",
+        "reuse_ideas": [
+          {"title": "Kompos dari Sisa Sayuran", "youtube_link": "https://youtu.be/dummy24"}
+        ]
+      },
+      {
+        "id": 70,
+        "name": "Kulit buah",
+        "desc": "Kulit luar dari berbagai buah seperti pisang, jeruk, apel. Dapat dijadikan kompos atau pakan ternak.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "organic",
+        "alias": ["Sampah buah", "Kulit pisang", "Kulit jeruk"],
+        "handling": "Dikumpulkan untuk kompos atau fermentasi menjadi pupuk cair.",
+        "reuse_ideas": [
+          {"title": "Pupuk Cair dari Kulit Buah", "youtube_link": "https://youtu.be/dummy25"}
+        ]
+      },
+      {
+        "id": 71,
+        "name": "Daun kering",
+        "desc": "Daun yang gugur dan mengering secara alami. Dapat digunakan untuk kompos atau sebagai mulsa.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "organic",
+        "alias": ["Daun gugur", "Daun taman", "Daun mati"],
+        "handling": "Kumpulkan dan gunakan untuk kompos, mulsa, atau bahan bakar alami.",
+        "reuse_ideas": [
+          {"title": "Mulsa dari Daun Kering", "youtube_link": "https://youtu.be/dummy26"}
+        ]
+      },
+      {
+        "id": 72,
+        "name": "Tulang ikan/ayam",
+        "desc": "Sisa tulang dari makanan. Dapat dikomposkan dengan teknik khusus atau dijadikan pakan ternak.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "organic",
+        "alias": ["Tulang ayam", "Tulang ikan", "Sisa tulang masakan"],
+        "handling": "Kumpulkan untuk kompos takakura atau EM4. Jangan buang sembarangan agar tidak berbau.",
+        "reuse_ideas": [
+          {"title": "Pupuk Organik dari Tulang Ikan", "youtube_link": "https://youtu.be/dummy27"}
+        ]
+      },
+      {
+        "id": 73,
+        "name": "Cangkang telur",
+        "desc": "Kulit luar telur ayam yang keras dan mengandung kalsium. Dapat digunakan sebagai pupuk atau pengusir hama.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "organic",
+        "alias": ["Kulit telur", "Cangkang telur ayam"],
+        "handling": "Keringkan, remukkan, dan taburkan di tanah sebagai pupuk.",
+        "reuse_ideas": [
+          {"title": "Pupuk Kalsium dari Cangkang Telur", "youtube_link": "https://youtu.be/dummy28"}
+        ]
+      },
+      {
+        "id": 74,
+        "name": "Karet gelang",
+        "desc": "Karet elastis berbentuk cincin kecil yang biasa digunakan untuk mengikat. Sulit terurai dan tidak umum didaur ulang.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Karet ikat", "Gelang karet"],
+        "handling": "Kumpulkan dalam wadah kecil agar tidak tercecer, lalu buang ke sampah residu atau manfaatkan ulang.",
+        "reuse_ideas": [
+          {"title": "Kerajinan Sederhana dari Karet Gelang", "youtube_link": "https://youtu.be/dummy29"}
+        ]
+      },
+      {
+        "id": 75,
+        "name": "CD/DVD rusak",
+        "desc": "Piringan plastik dengan lapisan reflektif yang sulit terurai dan tidak dapat didaur ulang melalui sistem biasa.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Disk rusak", "CD bekas", "DVD bekas"],
+        "handling": "Patahkan sebelum dibuang agar tidak disalahgunakan. Masukkan ke dalam sampah anorganik.",
+        "reuse_ideas": [
+          {"title": "Hiasan Dinding dari CD Bekas", "youtube_link": "https://youtu.be/dummy30"}
+        ]
+      },
+      {
+        "id": 76,
+        "name": "Ban dalam/luar",
+        "desc": "Komponen kendaraan berbahan karet tebal. Sulit terurai tapi bisa dimanfaatkan kembali untuk berbagai keperluan.",
+        "recyclable": true,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Ban motor", "Ban bekas", "Ban mobil"],
+        "handling": "Kumpulkan dan berikan ke bank sampah atau bengkel daur ulang. Jangan dibakar.",
+        "reuse_ideas": [
+          {"title": "Pot Tanaman dari Ban Bekas", "youtube_link": "https://youtu.be/dummy31"}
+        ]
+      },
+      {
+        "id": 77,
+        "name": "Papan kayu lapuk",
+        "desc": "Potongan kayu tua atau bekas furnitur yang sudah rapuh. Bisa digunakan kembali atau dibakar sebagai bahan bakar.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Kayu bekas", "Papan rusak"],
+        "handling": "Jika kering, bisa dijadikan bahan bakar. Jika lembap atau berjamur, buang ke tempat sampah residu.",
+        "reuse_ideas": [
+          {"title": "Dekorasi Rustic dari Kayu Bekas", "youtube_link": "https://youtu.be/dummy32"}
+        ]
+      },
+      {
+        "id": 78,
+        "name": "Kain terpal",
+        "desc": "Bahan pelapis berbentuk kain tebal dan tahan air, biasanya digunakan untuk menutup barang atau tenda.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Terpal rusak", "Penutup barang"],
+        "handling": "Jika masih layak, bisa dipakai ulang. Jika sobek total, buang ke tempat sampah anorganik.",
+        "reuse_ideas": [
+          {"title": "Sampul Barang dari Terpal Bekas", "youtube_link": "https://youtu.be/dummy33"}
+        ]
+      },
+      {
+        "id": 79,
+        "name": "Isi bantal dakron",
+        "desc": "Serat sintetis halus yang digunakan untuk mengisi bantal atau boneka. Tidak bisa didaur ulang secara umum.",
+        "recyclable": false,
+        "hazardous": false,
+        "category": "lain lain",
+        "alias": ["Dakron bekas", "Isi boneka"],
+        "handling": "Bungkus rapat dalam kantong sebelum dibuang agar tidak berhamburan.",
+        "reuse_ideas": [
+          {"title": "Isi Boneka DIY dari Dakron Bekas", "youtube_link": "https://youtu.be/dummy34"}
+        ]
+      }
+    ]
+}

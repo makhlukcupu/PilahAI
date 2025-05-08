@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
 import 'waste_detail_page.dart'; // For when user taps an object
+import 'package:skripshot/models.dart';
+import 'package:skripshot/data_loader.dart';
 
 class CategoryDetailPage extends StatelessWidget {
   final Category category;
@@ -60,7 +62,7 @@ class CategoryDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      category.description,
+                      category.handling,
                       style: const TextStyle(fontSize: 15, height: 1.4),
                     ),
                     const Divider(height: 32),
@@ -77,7 +79,7 @@ class CategoryDetailPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ObjectDetailPage(objectName: obj, icon: category.icon),
+                                builder: (context) => ObjectDetailPage(object: WasteRepository.objects.firstWhere((o) => o.name == obj), icon: category.icon),
                               ),
                             );
                           },

@@ -9,8 +9,11 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'data_loader.dart';
 import 'models.dart';
 import 'package:skripshot/search_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skripshot/last_opened_object_manager.dart';
+import 'package:skripshot/waste_detail_page.dart';
 
-
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await loadLabels();
@@ -25,13 +28,25 @@ Future<void> loadLabels() async {
   final Map<String, dynamic> jsonData = json.decode(jsonString);
   classLabels = jsonData.map((key, value) => MapEntry(int.parse(key), value));
 }
+Future<List<WasteObject>> loadRecentObjects() async {
+  final prefs = await SharedPreferences.getInstance();
+  final ids = prefs.getStringList('recent_objects') ?? [];
+
+  // Convert list of IDs to actual objects from your WasteRepository
+  return ids
+      .map((name) => WasteRepository.objects.firstWhere((o) => o.name == name))
+      .whereType<WasteObject>()
+      .toList();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -43,12 +58,40 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with RouteAware{
   final categories = WasteRepository.categories;
+  List<WasteObject> recentObjects = [];
+
 
   @override
   void initState() {
     super.initState();
+    _loadRecentObjects();
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+    _loadRecentObjects(); // load initially
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // Called when user returns from another page
+    _loadRecentObjects();
+  }
+
+  Future<void> _loadRecentObjects() async {
+    final recent = await LastOpenedObjectManager().loadLastOpenedObjects();
+    setState(() {
+      recentObjects = recent;
+    });
   }
 
   @override
@@ -147,17 +190,45 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 24),
 
             // 🧠 Smart Suggestions (static for now)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text("Terakhir dilihat", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SuggestionCard(name: "Botol Plastik", recyclable: true),
-            ),
+            if (recentObjects.isNotEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: Text("Baru Dilihat", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(
+                height: 170,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: recentObjects.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  itemBuilder: (context, index) {
+                    final obj = recentObjects[index];
+                    return ObjectCard(
+                      object: obj,
+                      icon: WasteRepository.categories.firstWhere((o) => o.id == obj.categoryId).icon,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => ObjectDetailPage(object: obj, icon: WasteRepository.categories.firstWhere((o) => o.id == obj.categoryId).icon ,)),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
 
-            SizedBox(height: 24),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   child: Text("Terakhir dilihat", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            // ),
+            // SizedBox(height: 12),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   child: SuggestionCard(name: "Botol Plastik", recyclable: true),
+            // ),
+            //
+            // SizedBox(height: 24),
 
             // ♻️ Tip of the Day
             Padding(
@@ -234,28 +305,77 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-class SuggestionCard extends StatelessWidget {
-  final String name;
-  final bool recyclable;
 
-  const SuggestionCard({required this.name, required this.recyclable});
+class ObjectCard extends StatelessWidget {
+  final WasteObject object;
+  final String icon;
+  final VoidCallback onTap;
+
+  const ObjectCard({Key? key, required this.object, required this.onTap, required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: ListTile(
-        leading: Icon(LucideIcons.box, color: Colors.green[700]),
-        title: Text(name),
-        subtitle: Text(
-          recyclable ? "Dapat didaur ulang" : "Tidak dapat didaur ulang",
-          style: TextStyle(color: recyclable ? Colors.green : Colors.red),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 140,
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade200,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
-        trailing: Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          // navigate to object detail
-        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(icon, width: 40, height: 40,),//icon ganti nanti yang sesuai data
+            const SizedBox(height: 8),
+            Text(object.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            Text(
+              object.recyclable ? 'Daur Ulang' : 'Tidak Daur Ulang',
+              style: TextStyle(
+                color: object.recyclable ? Colors.green : Colors.red,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+
+// class SuggestionCard extends StatelessWidget {
+//   final String name;
+//   final bool recyclable;
+//
+//   const SuggestionCard({required this.name, required this.recyclable});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//       child: ListTile(
+//         leading: Icon(LucideIcons.box, color: Colors.green[700]),
+//         title: Text(name),
+//         subtitle: Text(
+//           recyclable ? "Dapat didaur ulang" : "Tidak dapat didaur ulang",
+//           style: TextStyle(color: recyclable ? Colors.green : Colors.red),
+//         ),
+//         trailing: Icon(Icons.arrow_forward_ios, size: 16),
+//         onTap: () {
+//           // navigate to object detail
+//         },
+//       ),
+//     );
+//   }
+// }

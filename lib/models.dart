@@ -3,6 +3,7 @@ class Category {
   final String name;
   final String icon;
   final String description;
+  final String handling;
   final List<String> objects;
 
   Category({
@@ -10,6 +11,7 @@ class Category {
     required this.name,
     required this.icon,
     required this.description,
+    required this.handling,
     required this.objects,
   });
 
@@ -18,6 +20,7 @@ class Category {
     name: json['name'] as String,
     icon: json['icon'] as String,
     description: json['description'] as String,
+    handling: json['handling'] as String,
     objects: List<String>.from(json['objects'] as List), // Explicit cast to List<String>
   );
 }

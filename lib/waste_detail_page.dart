@@ -1,17 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:skripshot/data_loader.dart';
 import 'package:skripshot/models.dart';
+import 'dart:async';
+import 'package:skripshot/last_opened_object_manager.dart';
 
-class ObjectDetailPage extends StatelessWidget {
-  final String objectName;
+
+class ObjectDetailPage extends StatefulWidget {
+  final WasteObject object;
   final String icon;
-  late final object = WasteRepository.objects.firstWhere((o) => o.name == objectName);
-  ObjectDetailPage({Key? key, required this.objectName, required this.icon}) : super(key: key);
+
+  const ObjectDetailPage({Key? key, required this.object, required this.icon}) : super(key: key);
+
+  @override
+  State<ObjectDetailPage> createState() => _ObjectDetailPageState();
+}
+
+// class ObjectDetailPage extends StatelessWidget {
+//   //final String objectName;
+//   final WasteObject object;
+//   final String icon;
+//   //late final object = WasteRepository.objects.firstWhere((o) => o.name == objectName);
+//   ObjectDetailPage({Key? key, required this.object, required this.icon}) : super(key: key);
+
+class _ObjectDetailPageState extends State<ObjectDetailPage> {
+  Timer? _viewTimer;
 
 
   @override
+  void initState() {
+    super.initState();
+
+    // Start a 10-second timer to save this object as recently opened
+    _viewTimer = Timer(const Duration(seconds: 10), () {
+      LastOpenedObjectManager().saveLastOpenedObject(widget.object);
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel timer if user leaves before 10 seconds
+    _viewTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final object = widget.object;
+    final icon = widget.icon;
     return Scaffold(
       appBar: AppBar(title: Text(object.name)),
       body: SingleChildScrollView(
@@ -55,162 +89,3 @@ class ObjectDetailPage extends StatelessWidget {
 }
 
 
-// class ObjectDetailPage extends StatefulWidget {
-//   @override
-//   _ObjectDetailPageState createState() => _ObjectDetailPageState();
-// }
-//
-// class _ObjectDetailPageState extends State<ObjectDetailPage> {
-//   final RecyclableObject object;
-//   const ObjectDetailPage({required this.object});
-//
-//   bool showIdeas = false;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final ideas = object['ideas'] ?? [];
-//
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           // Optional: open camera or rescan
-//         },
-//         backgroundColor: Colors.green,
-//         child: Icon(Icons.camera_alt),
-//       ),
-//       body: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//           child: SingleChildScrollView(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 // Back Button
-//                 IconButton(
-//                   icon: Icon(Icons.arrow_back, color: Colors.green[800]),
-//                   onPressed: () => Navigator.pop(context),
-//                 ),
-//
-//                 SizedBox(height: 8),
-//
-//                 // Icon
-//                 Center(
-//                   child: Image.asset(
-//                     objectData['icon'],
-//                     width: 80,
-//                     height: 80,
-//                   ),
-//                 ),
-//                 SizedBox(height: 16),
-//
-//                 // Name
-//                 Center(
-//                   child: Text(
-//                     objectData['name'],
-//                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-//                   ),
-//                 ),
-//
-//                 // Recyclability Status
-//                 Center(
-//                   child: Text(
-//                     objectData['recyclable']
-//                         ? "♻️ Dapat Didaur Ulang"
-//                         : "🚫 Tidak Didaur Ulang",
-//                     style: TextStyle(
-//                       color: objectData['recyclable']
-//                           ? Colors.green
-//                           : Colors.red,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ),
-//
-//                 SizedBox(height: 24),
-//
-//                 // Description
-//                 Text(
-//                   objectData['description'],
-//                   style: TextStyle(fontSize: 16),
-//                 ),
-//
-//                 // Divider
-//                 if (ideas.isNotEmpty) ...[
-//                   Divider(height: 32, color: Colors.grey[400]),
-//
-//                   // Dropdown Header
-//                   GestureDetector(
-//                     onTap: () => setState(() => showIdeas = !showIdeas),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           "Ide Guna Ulang",
-//                           style: TextStyle(
-//                             fontSize: 20,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         Icon(
-//                           showIdeas
-//                               ? Icons.expand_less
-//                               : Icons.expand_more,
-//                           size: 28,
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//
-//                   SizedBox(height: 12),
-//
-//                   // Dropdown Content
-//                   if (showIdeas)
-//                     Column(
-//                       children: ideas.map<Widget>((idea) {
-//                         final videoId = idea['youtubeId'];
-//                         final thumbnailUrl =
-//                             'https://img.youtube.com/vi/$videoId/0.jpg';
-//                         return Card(
-//                           margin: EdgeInsets.symmetric(vertical: 8),
-//                           child: ListTile(
-//                             leading: CachedNetworkImage(
-//                               imageUrl: thumbnailUrl,
-//                               placeholder: (context, url) => Container(
-//                                 width: 64,
-//                                 height: 48,
-//                                 alignment: Alignment.center,
-//                                 child: CircularProgressIndicator(strokeWidth: 2),
-//                               ),
-//                               errorWidget: (context, url, error) => Container(
-//                                 width: 64,
-//                                 height: 48,
-//                                 color: Colors.grey[300],
-//                                 alignment: Alignment.center,
-//                                 child: Text(
-//                                   "No Image",
-//                                   style: TextStyle(fontSize: 10),
-//                                   textAlign: TextAlign.center,
-//                                 ),
-//                               ),
-//                               width: 64,
-//                               height: 48,
-//                               fit: BoxFit.cover,
-//                             ),
-//                             title: Text(idea['title']),
-//                             onTap: () {
-//                               // Optional: open video link or offline idea page
-//                             },
-//                           ),
-//                         );
-//                       }).toList(),
-//                     ),
-//                 ],
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

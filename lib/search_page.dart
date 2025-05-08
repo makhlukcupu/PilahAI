@@ -95,7 +95,7 @@ class _AllObjectsPageState extends State<AllObjectsPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ObjectDetailPage(objectName: obj.name, icon: WasteRepository.categories.firstWhere((cat) => cat.id == obj.categoryId).icon),
+                        builder: (context) => ObjectDetailPage(object: obj, icon: WasteRepository.categories.firstWhere((cat) => cat.id == obj.categoryId).icon),
                       ),
                     );
                     // Navigate to detail page if needed
