@@ -58,8 +58,8 @@ class _ObjectDetailPageState extends State<ObjectDetailPage> {
               SizedBox(height: 8),
               Center(child: Text(object.name, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold))),
               Center(child: Text(
-                object.recyclable ? "Dapat didaur ulang" : "Tidak dapat didaur ulang",
-                style: TextStyle(color: object.recyclable ? Colors.green : Colors.red),
+                object.recyclable ? "Dapat didaur ulang" : object.hazardous? "Beracun atau Berbahaya (B3)" : "Residu/Tidak dapat didaur ulang",
+                style: TextStyle(color: object.recyclable ? Colors.green : object.hazardous? Colors.brown : Colors.red),
               ),),
               SizedBox(height: 16),
               Text(object.description),
@@ -68,18 +68,26 @@ class _ObjectDetailPageState extends State<ObjectDetailPage> {
               Text("Cara daur ulang", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               Text("Cek video ide guna ulang di bawah."),
               Divider(),
-              ExpansionTile(
+              object.recyclingIdeas.isEmpty
+                  ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Belum ada ide untuk daur ulang sendiri.",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              )
+                  : ExpansionTile(
                 title: Text("Ide Guna Ulang"),
                 children: object.recyclingIdeas.map((idea) {
                   return ListTile(
-                    leading: Text("[Thumbnail]"), // use CachedNetworkImage in actual app
-                    title: Text(idea.title),
+                    leading: Text("[Thumbnail]"), // Ganti dengan CachedNetworkImage
+                    title: Text(idea["title"] ?? "Tanpa Judul"),
                     onTap: () {
-                      // Optionally: open URL or show preview
+                      // Buka URL atau preview
                     },
                   );
                 }).toList(),
-              ),
+              )
             ],
           ),
         ),

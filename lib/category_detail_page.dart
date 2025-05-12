@@ -7,7 +7,8 @@ import 'package:skripshot/data_loader.dart';
 class CategoryDetailPage extends StatelessWidget {
   final Category category;
 
-  const CategoryDetailPage({super.key, required this.category});
+  CategoryDetailPage({super.key, required this.category});
+  final objects = WasteRepository.objects;
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +74,13 @@ class CategoryDetailPage extends StatelessWidget {
                       ),
                       children: category.objects.map((obj) {
                         return ListTile(
-                          title: Text(obj),
+                          title: Text(objects.firstWhere((o) => o.id == obj).name),
                           //leading: Text(obj.icon, style: const TextStyle(fontSize: 24)),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ObjectDetailPage(object: WasteRepository.objects.firstWhere((o) => o.name == obj), icon: category.icon),
+                                builder: (context) => ObjectDetailPage(object: WasteRepository.objects.firstWhere((o) => o.id == obj), icon: category.icon),
                               ),
                             );
                           },

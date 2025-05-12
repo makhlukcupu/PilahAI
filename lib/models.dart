@@ -4,7 +4,7 @@ class Category {
   final String icon;
   final String description;
   final String handling;
-  final List<String> objects;
+  final List<int> objects;
 
   Category({
     required this.id,
@@ -21,23 +21,24 @@ class Category {
     icon: json['icon'] as String,
     description: json['description'] as String,
     handling: json['handling'] as String,
-    objects: List<String>.from(json['objects'] as List), // Explicit cast to List<String>
+    objects: List<int>.from(json['objects'] as List), // Explicit cast to List<String>
   );
 }
 
-class RecyclingIdea {
-  final String title;
-  final String url;
-
-  RecyclingIdea({required this.title, required this.url});
-
-  factory RecyclingIdea.fromJson(Map<String, dynamic> json) => RecyclingIdea(
-    title: json['title'],
-    url: json['youtube_url'],
-  );
-}
+// class RecyclingIdea {
+//   final String title;
+//   final String url;
+//
+//   RecyclingIdea({required this.title, required this.url});
+//
+//   factory RecyclingIdea.fromJson(Map<String, dynamic> json) => RecyclingIdea(
+//     title: json['title'],
+//     url: json['youtube_url'],
+//   );
+// }
 
 class WasteObject {
+  final int id;
   final String name;
   final String categoryId;
   //final String icon;
@@ -45,9 +46,10 @@ class WasteObject {
   final bool recyclable;
   final bool hazardous;
   final List<dynamic> alias;//harusnya string, tapi ada typo atau error di database, ada yang kebaca bukan string
-  final List<RecyclingIdea> recyclingIdeas;
+  final List<Map<String, dynamic>> recyclingIdeas;
 
   WasteObject({
+    required this.id,
     required this.name,
     required this.categoryId,
     //required this.icon,
@@ -59,15 +61,15 @@ class WasteObject {
   });
 
   factory WasteObject.fromJson(Map<String, dynamic> json) => WasteObject(
+    id: json["id"],
     name: json['name'],
-    categoryId: json['category_id'],
+    categoryId: json['category'],
     //icon: json['icon'],
-    description: json['description'],
+    description: json['desc'],
     recyclable: json['recyclable'],
     hazardous: json['hazardous'],
-    alias: json['alias'],
-    recyclingIdeas: (json['reuse_ideas'] as List)
-        .map((e) => RecyclingIdea.fromJson(e))
-        .toList(),
-  );
+    alias: json['alias']??[],
+    recyclingIdeas: (json['reuse_ideas'] as List<dynamic>? ?? [])
+      .whereType<Map<String, dynamic>>()
+      .toList());
 }

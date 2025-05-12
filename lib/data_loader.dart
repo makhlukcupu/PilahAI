@@ -14,7 +14,7 @@ class WasteRepository {
         .map((e) => Category.fromJson(e))
         .toList();
 
-    objects = (parsed['objects'] as List)
+    objects = (parsed['waste_items'] as List)
         .map((e) => WasteObject.fromJson(e))
         .toList();
     print("data_loaded");

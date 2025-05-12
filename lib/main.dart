@@ -13,14 +13,59 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skripshot/last_opened_object_manager.dart';
 import 'package:skripshot/waste_detail_page.dart';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart'; // For rootBundle
+
 final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await loadLabels();
-  await YoloModel().loadModel(); // Load model when app starts
-  await WasteRepository.loadFromJson();//load all waste data
-  runApp(MyApp());
+
+  // Start all initialization tasks in the background
+  final initialization = _initializeApp();
+
+  runApp(
+    MaterialApp(
+      navigatorObservers: [routeObserver],
+      debugShowCheckedModeBanner: false,
+      home: FutureBuilder(
+        future: initialization,
+        builder: (context, snapshot) {
+          // Show splash screen while initializing
+          if (snapshot.connectionState != ConnectionState.done) {
+            return SplashScreen(
+              progress: _calculateProgress(snapshot), // Optional progress
+            );
+          }
+
+          // Show error screen if initialization failed
+          if (snapshot.hasError) {
+            return ErrorScreen(error: snapshot.error);
+          }
+
+          // Return main app when everything is ready
+          return HomePage();
+        },
+      ),
+    ),
+  );
 }
+
+// Combined initialization function
+Future<void> _initializeApp() async {
+  try {
+    await loadLabels();
+    await YoloModel().loadModel();
+    await WasteRepository.loadFromJson();
+    // await clearOldData(); // Uncomment if needed
+  } catch (e) {
+    debugPrint("Initialization failed: $e");
+    rethrow;
+  }
+}
+
+// Your existing functions (unchanged)
 Map<int, String> classLabels = {};
 
 Future<void> loadLabels() async {
@@ -28,30 +73,77 @@ Future<void> loadLabels() async {
   final Map<String, dynamic> jsonData = json.decode(jsonString);
   classLabels = jsonData.map((key, value) => MapEntry(int.parse(key), value));
 }
+
 Future<List<WasteObject>> loadRecentObjects() async {
   final prefs = await SharedPreferences.getInstance();
   final ids = prefs.getStringList('recent_objects') ?? [];
-
-  // Convert list of IDs to actual objects from your WasteRepository
   return ids
       .map((name) => WasteRepository.objects.firstWhere((o) => o.name == name))
       .whereType<WasteObject>()
       .toList();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// New splash screen widget
+class SplashScreen extends StatelessWidget {
+  final double? progress;
 
+  const SplashScreen({this.progress, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorObservers: [routeObserver],
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/icons/splash.png'),
+            if (progress != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: Colors.grey[300],
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
+
+// Optional error screen
+class ErrorScreen extends StatelessWidget {
+  final dynamic error;
+
+  const ErrorScreen({required this.error, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            const Text("Initialization Error"),
+            Text(error.toString()),
+            ElevatedButton(
+              onPressed: () => main(), // Retry
+              child: const Text("Retry"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Helper function for progress calculation
+double? _calculateProgress(AsyncSnapshot snapshot) {
+  // Implement your progress logic here if needed
+  // Example: return 0.5 when halfway through initialization
+  return null; // Return null to hide progress indicator
+}
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -340,9 +432,9 @@ class ObjectCard extends StatelessWidget {
             Text(object.name, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Text(
-              object.recyclable ? 'Daur Ulang' : 'Tidak Daur Ulang',
+              object.recyclable ? 'Daur Ulang' : object.hazardous? 'Beracun atau Berbahaya (B3)' : 'Tidak Daur Ulang',
               style: TextStyle(
-                color: object.recyclable ? Colors.green : Colors.red,
+                color: object.recyclable ? Colors.green : object.hazardous? Colors.brown : Colors.red,
                 fontSize: 12,
               ),
             ),

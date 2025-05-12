@@ -1,27 +1,24 @@
 {"categories": [
   {
-    "id": "organik",
+    "id": "organic",
     "name": "Organik",
     "description": "Sampah organik adalah limbah yang berasal dari bahan alami dan mudah terurai secara hayati. Jika tidak dikelola dengan baik, sampah ini dapat menimbulkan bau, mencemari lingkungan, dan menghasilkan gas rumah kaca seperti metana. Namun, pengelolaan yang tepat dapat mengubahnya menjadi sumber daya yang berguna, seperti pupuk atau pakan, serta membantu mengurangi dampak lingkungan.",
     "handling" : "Penanganan sampah organik dimulai dengan pemilahan sejak awal agar tidak tercampur dengan sampah lain. Jika tidak dikelola lebih lanjut, sampah ini sebaiknya dibuang ke tempat sampah khusus organik untuk memudahkan pengolahan di tingkat lanjutan. Alternatifnya, sampah organik dapat diolah melalui pengomposan atau biokonversi menggunakan mikroba atau larva BSF, yang membantu mempercepat dekomposisi dan mengubahnya menjadi pupuk atau pakan, sehingga mengurangi dampak lingkungan.",
     "icon": "assets/icons/organic.png",
-    "objects": [
-      "Sisa Buah",
-      "Cangkang Telur"
-    ]
+    "objects": [69, 70, 71, 72, 73]
   },
   {
-    "id": "plastik",
+    "id": "plastic",
     "name": "Plastik",
     "description": "Sampah plastik adalah limbah sintetis berbahan polimer yang sangat sulit terurai secara alami, dengan waktu penguraian mencapai 100–500 tahun. Jika dibuang sembarangan, plastik dapat mencemari tanah, air, dan laut, serta membahayakan makhluk hidup.",
     "handling" : "Pilah sampah plastik sejak awal dan buang ke tempat sampah khusus plastik. Jika tidak tersedia, cek kategori objek pada aplikasi untuk menentukan apakah sampah tersebut masuk ke kategori daur ulang atau residu, agar dapat ditangani dengan benar.",
     "icon": "assets/icons/bottle.png",
     "objects": [
-      1, 2, 3, 4, 5,6, 7, 8, 9, 10, 11, 12, 13
+      1, 2, 3, 4, 5,6, 7, 8, 9, 10, 11, 12, 13, 78, 79
     ]
   },
   {
-    "id": "kaca",
+    "id": "glass",
     "name": "Kaca",
     "description": "Sampah kaca adalah limbah yang terbuat dari material yang sangat sulit terurai secara alami dan dapat bertahan ratusan tahun di lingkungan. Kaca yang pecah atau terbelah berisiko tinggi menyebabkan cedera karena serpihannya yang tajam, serta mencemari lingkungan jika tidak dibuang dengan benar.",
     "handling" : "Pilah sampah kaca sejak awal dan buang ke tempat sampah khusus kaca. Jika kaca terbelah menjadi potongan besar, seperti gelas yang patah, sebaiknya dibungkus dengan bahan pelindung dan dibuang ke tempat sampah residu. Jika tempat sampah khusus kaca tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat.",
@@ -31,7 +28,7 @@
     ]
   },
   {
-    "id": "kertas",
+    "id": "paper",
     "name": "Kertas",
     "description": "Sampah kertas adalah limbah yang berasal dari bahan alami, namun jika tidak dikelola dengan benar, dapat menumpuk dan mencemari lingkungan. Meskipun kertas terurai lebih cepat dibandingkan plastik atau kaca, jika tidak didaur ulang, produksi kertas dapat menyebabkan deforestasi dan meningkatkan beban sampah di TPA.",
     "handling" : "Pilah sampah kertas sejak awal dan buang ke tempat sampah khusus kertas. Jika tempat sampah khusus kertas tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
@@ -41,7 +38,7 @@
     ]
   },
   {
-    "id": "logam",
+    "id": "metal",
     "name": "Logam",
     "description": "SSampah logam adalah limbah yang sulit terurai dan dapat mencemari lingkungan jika tidak dikelola dengan benar. Meskipun logam murni dapat didaur ulang, jika tidak dikelola dengan baik, logam dapat menambah beban sampah di TPA dan merusak ekosistem.",
     "handling" : "Pilah sampah logam sejak awal. Logam murni yang tidak terkontaminasi dapat didaur ulang, jadi buang ke tempat sampah khusus logam. Namun, jika logam terkontaminasi bahan kimia berbahaya, atau merupakan wadah yang mengandung bahan berbahaya (termasuk bahan berbahaya dan beracun/B3), serahkan ke pihak pengolah sampah yang berwenang. Jika tempat sampah khusus logam tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat.",
@@ -61,25 +58,23 @@
     ]
   },
   {
-    "id": "tekstil",
+    "id": "textile",
     "name": "Tekstil",
     "description": "Sampah tekstil adalah limbah yang berasal dari bahan kain, pakaian bekas, atau produk berbahan tekstil lainnya. Jika tidak dikelola dengan baik, tekstil dapat menumpuk di TPA dan membutuhkan waktu lama untuk terurai. Beberapa bahan tekstil juga mengandung zat kimia berbahaya, seperti pewarna dan bahan pengawet, yang bisa mencemari lingkungan.",
     "handling" : "Pilah sampah tekstil sejak awal. Jika tekstil masih layak pakai, pertimbangkan untuk disumbangkan atau dijual kembali. Jika sudah tidak dapat digunakan, buang ke tempat sampah khusus tekstil atau daur ulang. Jika tempat sampah khusus tekstil tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
     "icon": "assets/icons/textile.png",
     "objects": [
-      "Kaos Bekas",
-      "Celana Jeans"
+      54, 55, 56, 57, 58, 59, 60, 61
     ]
   },
   {
-    "id": "karet",
+    "id": "rubber",
     "name": "Karet",
     "description": "Sampah karet berasal dari bahan sintetis atau alam yang sangat sulit terurai di alam, dan bisa bertahan bertahun-tahun tanpa terdegradasi. Karet yang dibuang sembarangan dapat mencemari lingkungan dan membahayakan ekosistem, terutama jika terurai menjadi serpihan kecil yang sulit diolah.",
     "handling" : "Pilah sampah karet sejak awal dan buang ke tempat sampah khusus karet. Jika tempat sampah khusus karet tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu. Beberapa jenis karet, seperti ban bekas, sebaiknya diserahkan ke fasilitas pengolahan khusus.",
     "icon": "assets/icons/rubber.png",
     "objects": [
-      "Ban Bekas",
-      "Sandal Rusak"
+      74, 76
     ]
   },
   {
@@ -89,9 +84,16 @@
     "handling" : "Pilah sampah residu sejak awal dan pastikan untuk membuangnya ke tempat sampah khusus residu. Jika sampah tidak termasuk dalam kategori daur ulang atau tidak dapat diidentifikasi, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat. Hindari membuang sampah yang dapat didaur ulang ke tempat sampah residu untuk mengurangi beban TPA.",
     "icon": "assets/icons/residu.png",
     "objects": [
-      "Popok Bekas",
-      "Sisa Minyak Goreng"
+      62, 63, 64, 65, 66, 67, 68
     ]
+  },
+  {
+    "id": "b3",
+    "name": "Bahan Beracun & Berbahaya",
+    "description": "Sampah yang mengandung bahan beracun dan berbahaya bagi manusia dan alam. Contoh bahan beracun dan berbahaya adalah logam berat, sisa peralatan medis, dll.",
+    "handling": "Jangan dibuang sembarangan, pisahkan dari sampah-sampah lainnya, langsung serahkan ke pihak berwajib atau pihak pengelola sampah",
+    "icon": "assets/icons/residu.png",
+    "objects": [50, 51, 52, 53]
   }
 ],
   "waste_items": [
@@ -726,7 +728,7 @@
         "desc": "Obat-obatan yang sudah melewati tanggal kedaluwarsa tidak boleh dikonsumsi dan berpotensi mencemari lingkungan.",
         "recyclable": false,
         "hazardous": true,
-        "category": "e-waste",
+        "category": "b3",
         "alias": ["Obat expired", "Obat bekas", "Obat lama"],
         "handling": "Kembalikan ke apotek atau posko pengumpulan limbah medis. Jangan dibuang ke toilet atau sungai.",
         "reuse_ideas": []
@@ -737,7 +739,7 @@
         "desc": "Alat pengukur suhu yang mengandung merkuri, logam cair berbahaya yang sangat beracun jika bocor.",
         "recyclable": false,
         "hazardous": true,
-        "category": "e-waste",
+        "category": "b3",
         "alias": ["Termometer merkuri", "Termometer lama"],
         "handling": "Simpan dalam wadah kaca/plastik tertutup. Serahkan ke fasilitas limbah B3 atau e-waste.",
         "reuse_ideas": []
@@ -748,7 +750,7 @@
         "desc": "Sisa cat berbasis air yang mengandung senyawa kimia yang bisa mencemari tanah dan air jika dibuang sembarangan.",
         "recyclable": false,
         "hazardous": true,
-        "category": "e-waste",
+        "category": "b3",
         "alias": ["Cat bekas", "Cat tembok sisa"],
         "handling": "Tutup rapat dan buang di fasilitas limbah berbahaya atau bawa ke TPS yang menerima bahan kimia rumah tangga.",
         "reuse_ideas": [
@@ -761,7 +763,7 @@
         "desc": "Bahan kimia yang digunakan untuk membasmi hama. Sangat beracun bagi manusia, hewan, dan lingkungan.",
         "recyclable": false,
         "hazardous": true,
-        "category": "e-waste",
+        "category": "b3",
         "alias": ["Racun serangga", "Racun tikus", "Obat hama"],
         "handling": "Jangan buang ke saluran air. Serahkan ke posko limbah B3 atau instansi lingkungan hidup setempat.",
         "reuse_ideas": []
@@ -1022,7 +1024,7 @@
         "desc": "Karet elastis berbentuk cincin kecil yang biasa digunakan untuk mengikat. Sulit terurai dan tidak umum didaur ulang.",
         "recyclable": false,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "rubber",
         "alias": ["Karet ikat", "Gelang karet"],
         "handling": "Kumpulkan dalam wadah kecil agar tidak tercecer, lalu buang ke sampah residu atau manfaatkan ulang.",
         "reuse_ideas": [
@@ -1035,7 +1037,7 @@
         "desc": "Piringan plastik dengan lapisan reflektif yang sulit terurai dan tidak dapat didaur ulang melalui sistem biasa.",
         "recyclable": false,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "residu",
         "alias": ["Disk rusak", "CD bekas", "DVD bekas"],
         "handling": "Patahkan sebelum dibuang agar tidak disalahgunakan. Masukkan ke dalam sampah anorganik.",
         "reuse_ideas": [
@@ -1048,7 +1050,7 @@
         "desc": "Komponen kendaraan berbahan karet tebal. Sulit terurai tapi bisa dimanfaatkan kembali untuk berbagai keperluan.",
         "recyclable": true,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "rubber",
         "alias": ["Ban motor", "Ban bekas", "Ban mobil"],
         "handling": "Kumpulkan dan berikan ke bank sampah atau bengkel daur ulang. Jangan dibakar.",
         "reuse_ideas": [
@@ -1061,7 +1063,7 @@
         "desc": "Potongan kayu tua atau bekas furnitur yang sudah rapuh. Bisa digunakan kembali atau dibakar sebagai bahan bakar.",
         "recyclable": false,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "residu",
         "alias": ["Kayu bekas", "Papan rusak"],
         "handling": "Jika kering, bisa dijadikan bahan bakar. Jika lembap atau berjamur, buang ke tempat sampah residu.",
         "reuse_ideas": [
@@ -1074,7 +1076,7 @@
         "desc": "Bahan pelapis berbentuk kain tebal dan tahan air, biasanya digunakan untuk menutup barang atau tenda.",
         "recyclable": false,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "plastic",
         "alias": ["Terpal rusak", "Penutup barang"],
         "handling": "Jika masih layak, bisa dipakai ulang. Jika sobek total, buang ke tempat sampah anorganik.",
         "reuse_ideas": [
@@ -1087,7 +1089,7 @@
         "desc": "Serat sintetis halus yang digunakan untuk mengisi bantal atau boneka. Tidak bisa didaur ulang secara umum.",
         "recyclable": false,
         "hazardous": false,
-        "category": "lain lain",
+        "category": "plastic",
         "alias": ["Dakron bekas", "Isi boneka"],
         "handling": "Bungkus rapat dalam kantong sebelum dibuang agar tidak berhamburan.",
         "reuse_ideas": [

@@ -1,20 +1,21 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models.dart';
-import 'data_loader.dart'; // for WasteRepository or static object list
+import 'data_loader.dart'; // For WasteRepository or static object list
+import 'package:collection/collection.dart';
 
 class LastOpenedObjectManager {
   static const _key = 'recent_objects';
   static const _maxItems = 5;
 
-  /// Save object by its ID to SharedPreferences after 10 sec view
+  /// Save object by its ID to SharedPreferences after viewing
   Future<void> saveLastOpenedObject(WasteObject object) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> ids = prefs.getStringList(_key) ?? [];
 
     // Remove if already exists
-    ids.remove(object.name);
+    ids.remove(object.id.toString());
     // Add to the front
-    ids.insert(0, object.name);
+    ids.insert(0, object.id.toString());
 
     // Keep max 5 items
     if (ids.length > _maxItems) {
@@ -32,11 +33,12 @@ class LastOpenedObjectManager {
     // Match with global static object list
     final allObjects = WasteRepository.objects;
 
+    // Allow null to be returned if no match is found
     return ids
         .map((id) => allObjects.firstWhere(
-          (o) => o.name == id
+          (o) => o.id.toString() == id,
     ))
-        .whereType<WasteObject>() // remove any nulls
+        .whereType<WasteObject>() // Allow null in the list
         .toList();
   }
 
