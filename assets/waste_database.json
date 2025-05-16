@@ -78,7 +78,7 @@
     ]
   },
   {
-    "id": "residu",
+    "id": "residue",
     "name": "Residu",
     "description": "Sampah residu adalah limbah yang tidak dapat didaur ulang atau diolah lebih lanjut dengan cara biasa. Sampah ini sering kali berasal dari material yang telah terkontaminasi atau tidak memiliki nilai daur ulang, dan biasanya berakhir di tempat pembuangan akhir (TPA). Sampah residu bisa mencemari lingkungan jika tidak ditangani dengan benar.",
     "handling" : "Pilah sampah residu sejak awal dan pastikan untuk membuangnya ke tempat sampah khusus residu. Jika sampah tidak termasuk dalam kategori daur ulang atau tidak dapat diidentifikasi, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat. Hindari membuang sampah yang dapat didaur ulang ke tempat sampah residu untuk mengurangi beban TPA.",
@@ -1094,6 +1094,28 @@
       "handling": "Bungkus rapat dalam kantong sebelum dibuang agar tidak berhamburan.",
       "reuse_ideas": [
         {"title": "Isi Boneka DIY dari Dakron Bekas", "youtube_link": "https://youtu.be/dummy34"}
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Tutup Botol Plastik",
+      "category": "plastic",
+      "recyclable": true,
+      "hazardous": false,
+      "alias": ["tutup aqua"],
+      "desc": "Tutup botol plastik sering terbuat dari jenis plastik yang berbeda dari botolnya. Meski ukurannya kecil, tutup ini berpotensi mencemari lingkungan jika tidak dibuang dengan benar. Karena ringan, tutup botol mudah terbawa angin atau air dan membahayakan satwa yang bisa menelannya. Namun, tutup ini bisa didaur ulang bila dikumpulkan dan diproses dengan benar.",
+      "handling": "buang di tempat sampah plastik atau recyclable",
+      "reuse_ideas": [
+        {
+          "title": "Kerajinan dari Tutup Botol Plastik",
+          "thumbnail": "https://img.youtube.com/vi/abc12345678/hqdefault.jpg",
+          "youtube_link": "https://www.youtube.com/watch?v=abc12345678"
+        },
+        {
+          "judul": "Cara Membuat Mainan Edukatif dari Tutup Botol",
+          "thumbnail": "https://img.youtube.com/vi/def23456789/hqdefault.jpg",
+          "youtube_link": "https://www.youtube.com/watch?v=def23456789"
+        }
       ]
     }
   ]

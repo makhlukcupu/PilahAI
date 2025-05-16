@@ -58,6 +58,7 @@ Future<void> _initializeApp() async {
     await loadLabels();
     await YoloModel().loadModel();
     await WasteRepository.loadFromJson();
+    await loadObjectMapping();
     // await clearOldData(); // Uncomment if needed
   } catch (e) {
     debugPrint("Initialization failed: $e");
@@ -67,11 +68,18 @@ Future<void> _initializeApp() async {
 
 // Your existing functions (unchanged)
 Map<int, String> classLabels = {};
+Map<int, WasteObject> objectMap = {};
 
 Future<void> loadLabels() async {
   final String jsonString = await rootBundle.loadString('assets/categories.json');
   final Map<String, dynamic> jsonData = json.decode(jsonString);
   classLabels = jsonData.map((key, value) => MapEntry(int.parse(key), value));
+}
+
+Future<void> loadObjectMapping() async {
+  final String jsonString = await rootBundle.loadString('assets/object_mapping.json');
+  final Map<String, dynamic> jsonData = json.decode(jsonString);
+  objectMap = jsonData.map((key, value) => MapEntry(int.parse(key), WasteRepository.objects.firstWhere((o) => o.id == value)));
 }
 
 Future<List<WasteObject>> loadRecentObjects() async {

@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:skripshot/main.dart';
 import 'yolo_model.dart';
+import 'package:skripshot/models.dart';
+import 'data_loader.dart';
+import 'package:skripshot/waste_detail_page.dart';
 
 class DetectionScreen extends StatefulWidget {
   final String imagePath;
@@ -44,6 +47,9 @@ class _DetectionScreenState extends State<DetectionScreen> {
   Future<void> _runObjectDetection() async {
     if (classLabels.isEmpty) {
       await loadLabels();
+    }
+    if (objectMap.isEmpty){
+      await loadObjectMapping();
     }
     try {
       List<Map<String, dynamic>> results = await model.runYOLOv11Model(widget.imagePath);
@@ -115,9 +121,15 @@ class _DetectionScreenState extends State<DetectionScreen> {
               ..._drawBoundingBoxes(),
               Positioned.fill(
                 child: DetectionBottomDrawer(
-                  objects: detectedBoxes.map((d) => classLabels[d['classIndex']] ?? 'Unknown').toList(),
-                  onTapObject: (objectName) {
-                    _navigateToDetail(objectName);
+                  objects: detectedBoxes
+                      .map((d) => objectMap[d['classIndex']])
+                      .whereType<WasteObject>()
+                      .toList(),
+                  onTapObject: (object) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ObjectDetailPage(object: object, icon: WasteRepository.categories.firstWhere((o) => o.id == object.categoryId).icon ,)),
+                    );
                   },
                 ),
               ),
@@ -132,7 +144,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
     return detectedBoxes.map((detection) {
       List<double> box = detection["box"];
       double score = detection["confidence"];
-      int object = detection["classIndex"];
+      WasteObject? object = objectMap[detection['classIndex']];
 
       double x = box[0] * displayWidth + offsetX;
       double y = box[1] * displayHeight + offsetY;
@@ -159,7 +171,13 @@ class _DetectionScreenState extends State<DetectionScreen> {
             top: y - 30, // Move the label above the box
             child: GestureDetector(
               onTap: () {
-                _navigateToDetail(classLabels[object]!);
+                //_navigateToDetail(classLabels[object]!);
+                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ObjectDetailPage(object: object, icon: WasteRepository.categories.firstWhere((o) => o.id == object.categoryId).icon ,)),
+                );
+
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
@@ -168,7 +186,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  "${classLabels[object]!} ${score.toStringAsFixed(2)}",
+                  "${object!.name} ${score.toStringAsFixed(2)}",
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -210,8 +228,8 @@ class DetailScreen extends StatelessWidget {
 }
 
 class DetectionBottomDrawer extends StatefulWidget {
-  final List<String> objects;
-  final Function(String) onTapObject;
+  final List<WasteObject> objects;
+  final Function(WasteObject) onTapObject;
 
   const DetectionBottomDrawer({
     Key? key,
@@ -283,7 +301,7 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                 ),
                 SizedBox(height: 12),
                 ...widget.objects.map((obj) => ListTile(
-                  title: Text(obj),
+                  title: Text(obj.name),
                   trailing: Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () => widget.onTapObject(obj),
                 )),
