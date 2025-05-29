@@ -6,7 +6,7 @@ import 'yolo_model.dart';
 import 'package:skripshot/models.dart';
 import 'data_loader.dart';
 import 'package:skripshot/waste_detail_page.dart';
-
+import 'package:skripshot/search_page.dart';
 class DetectionScreen extends StatefulWidget {
   final String imagePath;
   const DetectionScreen({Key? key, required this.imagePath}) : super(key: key);
@@ -60,6 +60,8 @@ class _DetectionScreenState extends State<DetectionScreen> {
         isProcessing = false;
       });
     } catch (e) {
+      print("gagal dijalankan");
+      print(e);
       setState(() {
         isProcessing = false;
       });
@@ -113,12 +115,44 @@ class _DetectionScreenState extends State<DetectionScreen> {
                 ),
               if (!isProcessing && detectedBoxes.isEmpty)
                 Center(
-                  child: Text(
-                    "No objects detected",
-                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  child:
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Tidak ada objek terdeteksi",
+                        style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AllObjectsPage()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.search, color: Colors.black87),
+                              SizedBox(width: 8),
+                              Text(
+                                "Cari secara manual",
+                                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ..._drawBoundingBoxes(),
+                )
+              else ..._drawBoundingBoxes(),
               Positioned.fill(
                 child: DetectionBottomDrawer(
                   objects: detectedBoxes
@@ -131,6 +165,10 @@ class _DetectionScreenState extends State<DetectionScreen> {
                       MaterialPageRoute(builder: (_) => ObjectDetailPage(object: object, icon: WasteRepository.categories.firstWhere((o) => o.id == object.categoryId).icon ,)),
                     );
                   },
+                  onManualSearch: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AllObjectsPage()),
+                  ),
                 ),
               ),
             ],
@@ -172,7 +210,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
             child: GestureDetector(
               onTap: () {
                 //_navigateToDetail(classLabels[object]!);
-                
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => ObjectDetailPage(object: object, icon: WasteRepository.categories.firstWhere((o) => o.id == object.categoryId).icon ,)),
@@ -197,44 +235,18 @@ class _DetectionScreenState extends State<DetectionScreen> {
     }).toList();
   }
 
-  void _navigateToDetail(String label) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DetailScreen(label: label),
-      ),
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  final String label;
-
-  const DetailScreen({Key? key, required this.label}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("$label Details")),
-      body: Center(
-        child: Text(
-          "Detected: $label\n",
-          style: TextStyle(fontSize: 20),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
 }
 
 class DetectionBottomDrawer extends StatefulWidget {
   final List<WasteObject> objects;
   final Function(WasteObject) onTapObject;
+  final VoidCallback? onManualSearch;
 
   const DetectionBottomDrawer({
     Key? key,
     required this.objects,
     required this.onTapObject,
+    required this.onManualSearch
   }) : super(key: key);
 
   @override
@@ -305,6 +317,22 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                   trailing: Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () => widget.onTapObject(obj),
                 )),
+                ListTile(
+                  leading: Icon(Icons.search, color: Colors.grey[800]),
+                  title: Text(
+                    "Sampahmu tidak terdeteksi?",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  subtitle: Text("Coba cari secara manual"),
+                  onTap: () {
+                    if (widget.onManualSearch != null) {
+                      widget.onManualSearch!();
+                    } else {
+                      // Default fallback (optional)
+                      Navigator.pushNamed(context, '/search');
+                    }
+                  },
+                ),
               ],
             ),
           ),

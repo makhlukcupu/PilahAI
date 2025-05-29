@@ -12,10 +12,9 @@ import 'package:skripshot/search_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skripshot/last_opened_object_manager.dart';
 import 'package:skripshot/waste_detail_page.dart';
-
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart'; // For rootBundle
+import 'package:skripshot/about_app.dart';
+import 'package:skripshot/quotes_services.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
 
@@ -161,12 +160,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with RouteAware{
   final categories = WasteRepository.categories;
   List<WasteObject> recentObjects = [];
+  String randomQuote = "";
 
 
   @override
   void initState() {
     super.initState();
     _loadRecentObjects();
+    QuotesServices.loadQuotes().then((_) {
+      setState(() {
+        randomQuote = QuotesServices.getRandomQuote();
+      });
+    });
+
   }
   @override
   void didChangeDependencies() {
@@ -204,8 +210,13 @@ class _HomePageState extends State<HomePage> with RouteAware{
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings, color: Colors.green[800]),
-            onPressed: () {},
+            icon: Icon(Icons.question_mark, color: Colors.green[800]),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AboutAppPage()),
+              );
+            },
           )
         ],
       ),
@@ -332,18 +343,18 @@ class _HomePageState extends State<HomePage> with RouteAware{
 
             // ♻️ Tip of the Day
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text("♻️ Tips Hari Ini", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              padding: const EdgeInsets.only(left:16, right:16, top: 16, bottom: 0),
+              child: Text("♻️ Kata-Kata Untukmu", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(left:16, right:16, top:0, bottom: 16),
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 color: Colors.green[50],
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    "Gunakan kembali botol plastik sebagai pot tanaman atau tempat pensil!",
+                    randomQuote,
                     style: TextStyle(color: Colors.green[900]),
                   ),
                 ),
@@ -354,18 +365,35 @@ class _HomePageState extends State<HomePage> with RouteAware{
       ),
 
       // 📸 Floating Camera Button
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => CameraScreen(),
+      floatingActionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              'Coba scan sampahmu ->',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          );
-        },
-        backgroundColor: Colors.green[700],
-        child: Icon(Icons.camera_alt, color: Colors.white),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CameraScreen(),
+                ),
+              );
+            },
+            backgroundColor: Colors.green[700],
+            child: Icon(Icons.camera_alt, color: Colors.white),
+          ),
+        ],
       ),
+
     );
   }
 }

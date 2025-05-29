@@ -14,7 +14,7 @@
     "handling" : "Pilah sampah plastik sejak awal dan buang ke tempat sampah khusus plastik. Jika tidak tersedia, cek kategori objek pada aplikasi untuk menentukan apakah sampah tersebut masuk ke kategori daur ulang atau residu, agar dapat ditangani dengan benar.",
     "icon": "assets/icons/bottle.png",
     "objects": [
-      1, 2, 3, 4, 5,6, 7, 8, 9, 10, 11, 12, 13, 78, 79
+      1, 2, 3, 4, 5,6, 7, 8, 9, 10, 11, 12, 13, 78, 79, 86
     ]
   },
   {
@@ -34,7 +34,7 @@
     "handling" : "Pilah sampah kertas sejak awal dan buang ke tempat sampah khusus kertas. Jika tempat sampah khusus kertas tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
     "icon": "assets/icons/paper.png",
     "objects": [
-      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 81, 82
     ]
   },
   {
@@ -64,7 +64,7 @@
     "handling" : "Pilah sampah tekstil sejak awal. Jika tekstil masih layak pakai, pertimbangkan untuk disumbangkan atau dijual kembali. Jika sudah tidak dapat digunakan, buang ke tempat sampah khusus tekstil atau daur ulang. Jika tempat sampah khusus tekstil tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu.",
     "icon": "assets/icons/textile.png",
     "objects": [
-      54, 55, 56, 57, 58, 59, 60, 61
+      54, 55, 56, 57, 58, 59, 60, 61, 83
     ]
   },
   {
@@ -74,7 +74,7 @@
     "handling" : "Pilah sampah karet sejak awal dan buang ke tempat sampah khusus karet. Jika tempat sampah khusus karet tidak tersedia, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat, apakah termasuk kategori daur ulang atau residu. Beberapa jenis karet, seperti ban bekas, sebaiknya diserahkan ke fasilitas pengolahan khusus.",
     "icon": "assets/icons/rubber.png",
     "objects": [
-      74, 76
+      74, 76, 85
     ]
   },
   {
@@ -84,7 +84,7 @@
     "handling" : "Pilah sampah residu sejak awal dan pastikan untuk membuangnya ke tempat sampah khusus residu. Jika sampah tidak termasuk dalam kategori daur ulang atau tidak dapat diidentifikasi, cek kategori objek pada aplikasi untuk memastikan penanganan yang tepat. Hindari membuang sampah yang dapat didaur ulang ke tempat sampah residu untuk mengurangi beban TPA.",
     "icon": "assets/icons/residu.png",
     "objects": [
-      62, 63, 64, 65, 66, 67, 68
+      62, 63, 64, 65, 66, 67, 68, 84
     ]
   },
   {
@@ -1117,6 +1117,131 @@
           "youtube_link": "https://www.youtube.com/watch?v=def23456789"
         }
       ]
+    },
+    {
+  "id": 81,
+  "name": "Bungkus rokok",
+  "desc": "Bungkus rokok biasanya terbuat dari campuran plastik, kertas berlapis logam, dan aluminium foil yang sulit terurai dan tidak mudah didaur ulang.",
+  "recyclable": false,
+  "hazardous": true,
+  "category": "residue",
+  "alias": ["Pembungkus rokok", "Kemasan rokok", "Casing rokok"],
+  "handling": "Pisahkan dari sampah lain, hindari membuang sembarangan karena mengandung bahan berbahaya. Buang ke tempat sampah residu.",
+  "reuse_ideas": [
+    {
+      "title": "Kerajinan Kolase dari Bungkus Rokok",
+      "youtube_link": "https://youtu.be/dummy27"
+    },
+    {
+      "title": "Dompet Mini dari Bungkus Rokok",
+      "youtube_link": "https://youtu.be/dummy28"
     }
+  ]
+},
+{
+  "id": 82,
+  "name": "Gelas kertas",
+  "desc": "Gelas sekali pakai yang tampak seperti kertas namun dilapisi plastik tipis di dalamnya, sehingga sulit terurai dan tidak dapat didaur ulang secara umum.",
+  "recyclable": false,
+  "hazardous": false,
+  "category": "paper",
+  "alias": ["Paper cup", "Gelas kopi kertas", "Gelas take away"],
+  "handling": "Buang ke tempat sampah residu. Hindari mencampur dengan sampah kertas biasa karena lapisan plastiknya mengganggu proses daur ulang.",
+  "reuse_ideas": [
+    {
+      "title": "Tempat Pensil dari Gelas Kertas",
+      "youtube_link": "https://youtu.be/dummy29"
+    },
+    {
+      "title": "Mini Pot Tanaman dari Gelas Bekas",
+      "youtube_link": "https://youtu.be/dummy30"
+    }
+  ]
+},
+{
+  "id": 83,
+  "name": "Kaos kaki",
+  "desc": "Kaos kaki umumnya terbuat dari campuran kain sintetis seperti nilon, poliester, atau katun. Sulit untuk didaur ulang jika sudah rusak atau berlubang.",
+  "recyclable": false,
+  "hazardous": false,
+  "category": "textile",
+  "alias": ["Socks", "Kaos kaki bekas", "Kaus kaki"],
+  "handling": "Jika masih layak pakai, sumbangkan. Jika sudah rusak, buang ke tempat sampah tekstil atau gunakan kembali sebagai bahan kerajinan.",
+  "reuse_ideas": [
+    {
+      "title": "Boneka Tangan dari Kaos Kaki Bekas",
+      "youtube_link": "https://youtu.be/dummy31"
+    },
+    {
+      "title": "Tempat HP dari Kaos Kaki",
+      "youtube_link": "https://youtu.be/dummy32"
+    }
+  ]
+},
+{
+  "id": 84,
+  "name": "Korek gas",
+  "desc": "Korek gas mengandung butana yang mudah terbakar dan bagian logam serta plastik yang sulit dipisahkan, sehingga tidak dapat didaur ulang secara umum dan tergolong limbah berbahaya.",
+  "recyclable": false,
+  "hazardous": true,
+  "category": "residue",
+  "alias": ["Korek api gas", "Korek butana", "Korek api sekali pakai"],
+  "handling": "Pastikan isi gas sudah habis sebelum dibuang. Jangan dibakar atau dibuang sembarangan karena berisiko meledak. Buang ke tempat sampah residu atau limbah B3 jika tersedia.",
+  "reuse_ideas": [
+    {
+      "title": "Mini Obor dari Korek Bekas",
+      "youtube_link": "https://youtu.be/dummy33"
+    },
+    {
+      "title": "Kerajinan Miniatur dari Korek Gas",
+      "youtube_link": "https://youtu.be/dummy34"
+    }
+  ]
+},
+{
+  "id": 85,
+  "name": "Sandal",
+  "desc": "Sandal biasanya terbuat dari karet, busa, atau kain sintetis. Umumnya sulit didaur ulang karena terdiri dari bahan campuran yang menyatu.",
+  "recyclable": false,
+  "hazardous": false,
+  "category": "rubber",
+  "alias": ["Sandal rumah", "Sandal empuk", "Sandal tidur"],
+  "handling": "Jika masih layak pakai, pertimbangkan untuk disumbangkan. Jika sudah rusak, buang ke tempat sampah karet atau residu.",
+  "reuse_ideas": [
+    {
+      "title": "Keset dari Sandal Bekas",
+      "youtube_link": "https://youtu.be/dummy35"
+    },
+    {
+      "title": "Mainan Anak dari Sandal Slipper",
+      "youtube_link": "https://youtu.be/dummy36"
+    }
+  ]
+},
+{
+  "id": 86,
+  "name": "Alat makan plastik",
+  "desc": "Sendok, garpu, dan pisau plastik sekali pakai biasanya terbuat dari polistirena atau plastik campuran yang sulit didaur ulang dan sering mencemari lingkungan.",
+  "recyclable": false,
+  "hazardous": false,
+  "category": "plastic",
+  "alias": ["Sendok plastik", "Garpu plastik", "Pisau plastik", "Cutlery plastik"],
+  "handling": "Buang ke tempat sampah plastik jika tidak dapat digunakan kembali. Bersihkan sebelum dibuang agar tidak mengotori sampah lain.",
+  "reuse_ideas": [
+    {
+      "title": "Dekorasi Dinding dari Sendok Plastik",
+      "youtube_link": "https://youtu.be/dummy37"
+    },
+    {
+      "title": "Bunga Hias dari Garpu Plastik",
+      "youtube_link": "https://youtu.be/dummy38"
+    }
+  ]
+}
+
+
+
+
+
   ]
 }
