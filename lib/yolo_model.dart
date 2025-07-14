@@ -46,49 +46,42 @@ class YoloModel {
     }
   }
 
-  List<List<List<List<double>>>> preprocessImage(String imagePath) {
-    // 1. Load image
-    final imageBytes = File(imagePath).readAsBytesSync();
-    final originalImage = img.decodeImage(imageBytes);
-    if (originalImage == null) throw Exception('Image decoding failed');
+  List<List<List<List<double>>>> preprocess(Uint8List imageData, int inputWidth, int inputHeight) {
+    final image = img.decodeImage(imageData)!;
+    final resized = img.copyResize(image, width: inputWidth, height: inputHeight);
 
-    // Resize to 640x640
-    img.Image resizedImage = img.copyResize(originalImage, width: 640, height: 640);
+    return [
+      List.generate(inputHeight, (y) =>
+          List.generate(inputWidth, (x) {
+            final pixel = resized.getPixel(x, y);
+            return [
+              pixel.r / 255.0,
+              pixel.g / 255.0,
+              pixel.b / 255.0,
+            ];
+          })
+      )
+    ];
+  }
 
-    // Initialize input shape [1, 640, 640, 3]
-
-
-    final input = List.generate(1, (_) => // batch size
-    List.generate(640, (y) =>
-        List.generate(640, (x) {
-          final pixel = resizedImage.getPixel(x, y);
-          return [
-            pixel.r / 255.0,
-            pixel.g / 255.0,
-            pixel.b / 255.0,
-          ];
-        })));
-
-    return input;
-    }
-
-  Future<List<Map<String, dynamic>>> runYOLOv11Model(String imagePath) async {
+  Future<List<Map<String, dynamic>>> runYOLOv11Model(Uint8List imageBytes) async {
 
     // 2. Preprocess input
-    final inputBuffer = preprocessImage(imagePath);
+    final inputBuffer = preprocess(imageBytes, 640, 640);
 
     //print(inputBuffer.shape);
 
     // 3. Prepare output
     final output = List.generate(
-      1, // Batch size
+      1,
           (_) => List.generate(
-        30, // Number of values per detection
-            (_) => List<double>.filled(8400, 0.0), // Number of detections
+            30,
+            (_) => List.filled(8400, 0.0),
       ),
     );
     // 4. Run inference
     _interpreter.run(inputBuffer, output);
+
 // Post-process
     //print("📌 Raw Output Data Length: ${outputData.length}");
 

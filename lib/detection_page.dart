@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:skripshot/main.dart';
 import 'yolo_model.dart';
@@ -8,8 +9,8 @@ import 'data_loader.dart';
 import 'package:skripshot/waste_detail_page.dart';
 import 'package:skripshot/search_page.dart';
 class DetectionScreen extends StatefulWidget {
-  final String imagePath;
-  const DetectionScreen({Key? key, required this.imagePath}) : super(key: key);
+  final Uint8List imageBytes;
+  const DetectionScreen({Key? key, required this.imageBytes}) : super(key: key);
 
   @override
   _DetectionScreenState createState() => _DetectionScreenState();
@@ -23,19 +24,17 @@ class _DetectionScreenState extends State<DetectionScreen> {
   double offsetX = 0, offsetY = 0;
   bool isProcessing = true;
 
+
   @override
   void initState() {
     super.initState();
-    _initializeDetection();
-  }
-
-  Future<void> _initializeDetection() async {
-    await _getImageSize();
+    _getImageSize(widget.imageBytes);
     _runObjectDetection();
   }
 
-  Future<void> _getImageSize() async {
-    final image = await decodeImageFromList(File(widget.imagePath).readAsBytesSync());
+
+  Future<void> _getImageSize(Uint8List imageBytes) async {
+    final image = await decodeImageFromList(imageBytes);
     if (mounted) {
       setState(() {
         imageWidth = image.width.toDouble();
@@ -52,7 +51,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
       await loadObjectMapping();
     }
     try {
-      List<Map<String, dynamic>> results = await model.runYOLOv11Model(widget.imagePath);
+      List<Map<String, dynamic>> results = await model.runYOLOv11Model(widget.imageBytes);
       if (!mounted) return;
 
       setState(() {
@@ -67,6 +66,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,10 @@ class _DetectionScreenState extends State<DetectionScreen> {
                 child: SizedBox(
                   width: displayWidth,
                   height: displayHeight,
-                  child: Image.file(File(widget.imagePath), fit: BoxFit.cover),
+                  child: Image.memory(
+                    widget.imageBytes,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               if (isProcessing)
@@ -255,12 +258,16 @@ class DetectionBottomDrawer extends StatefulWidget {
 
 class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
   late DraggableScrollableController _controller;
+  late List<WasteObject> _uniqueObjects;
+  late Map<String, int> _objectCounts;
+
   bool isExpanded = false;
 
   @override
   void initState() {
     super.initState();
     _controller = DraggableScrollableController();
+    _filterUniqueObjects();
   }
 
   void _toggleDrawer() {
@@ -274,6 +281,22 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
       isExpanded = !isExpanded;
     });
   }
+  void _filterUniqueObjects() {
+    final seen = <String>{};
+    _uniqueObjects = [];
+    _objectCounts = {};
+    print("ldjfaoejflajfadlfjaeio: ");
+    print(widget.objects[0].name);
+    
+    for (final obj in widget.objects) {
+      _objectCounts[obj.name] = (_objectCounts[obj.name] ?? 0) + 1;
+      if (!seen.contains(obj.name)) {
+        seen.add(obj.name);
+        _uniqueObjects.add(obj);
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -312,9 +335,25 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                   child: Text("Objek Terdeteksi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
                 SizedBox(height: 12),
-                ...widget.objects.map((obj) => ListTile(
-                  title: Text(obj.name),
-                  trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                ..._uniqueObjects.map((obj) => ListTile(
+                  title: Text('${obj.name} ${(_objectCounts[obj.name]??1)  > 1? "x (${_objectCounts[obj.name]})" : ""}'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        obj.recyclable? "daur ulang":obj.hazardous?"B3": "residu",
+                        style: TextStyle(
+                          color: obj.recyclable? Colors.blue : obj.hazardous? Colors.red : Colors.yellow,
+                          fontSize: 16
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Icon(
+                        Icons.arrow_forward_ios, size: 16
+                      ),
+                    ],
+                  ),
+                  //obj.recyclable? "daur ulang":"residu" Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () => widget.onTapObject(obj),
                 )),
                 ListTile(

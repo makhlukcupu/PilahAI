@@ -265,16 +265,6 @@ class _HomePageState extends State<HomePage> with RouteAware{
             SizedBox(
               height: 120,
               child:
-              //FutureBuilder<List<Category>>(
-              //   future: futureCategories,
-              //   builder: (context, snapshot) {
-              //     if (snapshot.connectionState == ConnectionState.waiting) {
-              //       return const Center(child: CircularProgressIndicator());
-              //     } else if (snapshot.hasError) {
-              //       return const Center(child: Text("Gagal memuat kategori"));
-              //     }
-              //
-              //     final categories = snapshot.data!;
                 ListView.builder(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -328,19 +318,6 @@ class _HomePageState extends State<HomePage> with RouteAware{
                 ),
               ),
             ],
-
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16),
-            //   child: Text("Terakhir dilihat", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            // ),
-            // SizedBox(height: 12),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16),
-            //   child: SuggestionCard(name: "Botol Plastik", recyclable: true),
-            // ),
-            //
-            // SizedBox(height: 24),
-
             // ♻️ Tip of the Day
             Padding(
               padding: const EdgeInsets.only(left:16, right:16, top: 16, bottom: 0),
@@ -480,30 +457,3 @@ class ObjectCard extends StatelessWidget {
     );
   }
 }
-
-
-// class SuggestionCard extends StatelessWidget {
-//   final String name;
-//   final bool recyclable;
-//
-//   const SuggestionCard({required this.name, required this.recyclable});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-//       child: ListTile(
-//         leading: Icon(LucideIcons.box, color: Colors.green[700]),
-//         title: Text(name),
-//         subtitle: Text(
-//           recyclable ? "Dapat didaur ulang" : "Tidak dapat didaur ulang",
-//           style: TextStyle(color: recyclable ? Colors.green : Colors.red),
-//         ),
-//         trailing: Icon(Icons.arrow_forward_ios, size: 16),
-//         onTap: () {
-//           // navigate to object detail
-//         },
-//       ),
-//     );
-//   }
-// }

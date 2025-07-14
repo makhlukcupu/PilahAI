@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'detection_page.dart';
@@ -34,10 +34,11 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _captureImage() async {
     if (!_controller!.value.isTakingPicture) {
       XFile file = await _controller!.takePicture();
+      Uint8List imageBytes = await file.readAsBytes();
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetectionScreen(imagePath: file.path),
+          builder: (context) => DetectionScreen(imageBytes: imageBytes),
         ),
       );
     }
@@ -49,7 +50,7 @@ class _CameraScreenState extends State<CameraScreen> {
       body: Center(
         child: _isCameraReady
             ? AspectRatio(
-          aspectRatio: 9 / 16, // Ensuring 9:16 ratio
+          aspectRatio: 9 / 16,
           child: CameraPreview(_controller!),
         )
             : const CircularProgressIndicator(),
