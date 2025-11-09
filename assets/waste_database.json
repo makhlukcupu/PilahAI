@@ -107,8 +107,8 @@
       "alias": ["Botol Aqua", "Botol air minum", "Botol plastik transparan"],
       "handling": "Dibuang ke tempat sampah daur ulang plastik. Jika tidak ada, buang di tempat sampah anorganik setelah diremukkan untuk menghemat ruang.",
       "reuse_ideas": [
-        {"title": "Pot Tanaman dari Botol PET", "youtube_link": "https://youtu.be/dummy1"},
-        {"title": "Celengan dari Botol Plastik", "youtube_link": "https://youtu.be/dummy2"}
+        {"title": "Pot Tanaman dari Botol plastik", "youtube_link": "https://www.youtube.com/watch?v=wivsgmT2vdg"},
+        {"title": "Celengan dari Botol Plastik", "youtube_link": "https://hamilplus.com/cara-membuat-celengan-dari-botol-plastik/"}
       ]
     },
     {
@@ -145,7 +145,7 @@
       "recyclable": true,
       "hazardous": false,
       "category": "plastic",
-      "alias": ["Gelas minuman", "Cup plastik", "Gelas PP"],
+      "alias": ["Gelas minuman", "Cup plastik", "Gelas PP", "Gelas Aqua", "Teh Gelas", "Gelas Kopi", "Ale-ale"],
       "handling": "Buang ke tempat sampah daur ulang plastik. Bersihkan dari sisa minuman dan lepaskan label kertas jika ada.",
       "reuse_ideas": [
         {"title": "Pot Mini dari Gelas Plastik", "youtube_link": "https://youtu.be/dummy6"}
@@ -449,12 +449,12 @@
     },
     {
       "id": 28,
-      "name": "Sendok/garpu stainless",
+      "name": "alat makan stainless",
       "desc": "Peralatan makan berbahan stainless steel yang sudah tidak terpakai. Dapat dilebur dan didaur ulang.",
       "recyclable": true,
       "hazardous": false,
       "category": "metal",
-      "alias": ["Peralatan makan logam", "Cutlery bekas"],
+      "alias": ["Peralatan makan logam", "Cutlery bekas", "sendok logam", "garpu logam", "pisau makan"],
       "handling": "Kumpulkan dalam wadah terpisah. Bawa ke pengepul logam atau tempat sampah daur ulang logam.",
       "reuse_ideas": [
         {"title": "Kerajinan Logam dari Sendok Bekas", "youtube_link": "https://youtu.be/dummy29"}

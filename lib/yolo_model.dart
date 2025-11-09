@@ -38,7 +38,7 @@ class YoloModel {
           .shape;
 
       print('Input shape: $_inputShape'); // Expected: [1, 640, 640, 3]
-      print('Output shape: $_outputShape'); // Expected: [1, 84, 8400] (YOLOv8)
+      print('Output shape: $_outputShape'); // Expected: [1, 84, 8400] (YOLOv11)
       print('Input type: ${_interpreter.getInputTensor(0).type}');
       print('Output type: ${_interpreter.getOutputTensor(0).type}');
     } catch (e) {
@@ -73,9 +73,9 @@ class YoloModel {
 
     // 3. Prepare output
     final output = List.generate(
-      1,
+      _outputShape[0],
           (_) => List.generate(
-            30,
+            _outputShape[1],
             (_) => List.filled(8400, 0.0),
       ),
     );

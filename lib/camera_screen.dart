@@ -47,14 +47,25 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _isCameraReady
-            ? AspectRatio(
-          aspectRatio: 9 / 16,
-          child: CameraPreview(_controller!),
-        )
-            : const CircularProgressIndicator(),
+      appBar: AppBar(
+        title: const Text('Ambil gambar'),
       ),
+      body: _isCameraReady
+          ? Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: _controller!.value.previewSize!.height /
+                    _controller!.value.previewSize!.width,
+                child: CameraPreview(_controller!),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
+      )
+          : const Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: _captureImage,
         child: const Icon(Icons.camera),
@@ -62,6 +73,7 @@ class _CameraScreenState extends State<CameraScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
 
   @override
   void dispose() {

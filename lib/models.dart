@@ -73,3 +73,27 @@ class WasteObject {
       .whereType<Map<String, dynamic>>()
       .toList());
 }
+
+class Annotation {
+  double x, y, width, height;
+  String label;
+  Annotation({required this.x, required this.y, required this.width, required this.height, required this.label});
+
+  factory Annotation.fromMap(Map<String, dynamic> map) {
+    return Annotation(
+      x: map['x'] * 1.0,
+      y: map['y'] * 1.0,
+      width: map['width'] * 1.0,
+      height: map['height'] * 1.0,
+      label: map['label'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+    'x': x,
+    'y': y,
+    'width': width,
+    'height': height,
+    'label': label,
+  };
+}

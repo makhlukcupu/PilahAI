@@ -8,6 +8,7 @@ import 'package:skripshot/models.dart';
 import 'data_loader.dart';
 import 'package:skripshot/waste_detail_page.dart';
 import 'package:skripshot/search_page.dart';
+import 'package:skripshot/annotation_page.dart';
 class DetectionScreen extends StatefulWidget {
   final Uint8List imageBytes;
   const DetectionScreen({Key? key, required this.imageBytes}) : super(key: key);
@@ -23,6 +24,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
   double displayWidth = 1, displayHeight = 1;
   double offsetX = 0, offsetY = 0;
   bool isProcessing = true;
+
 
 
   @override
@@ -158,10 +160,8 @@ class _DetectionScreenState extends State<DetectionScreen> {
               else ..._drawBoundingBoxes(),
               Positioned.fill(
                 child: DetectionBottomDrawer(
-                  objects: detectedBoxes
-                      .map((d) => objectMap[d['classIndex']])
-                      .whereType<WasteObject>()
-                      .toList(),
+                  imageBytes: widget.imageBytes,
+                  detectedBoxes: detectedBoxes,
                   onTapObject: (object) {
                     Navigator.push(
                       context,
@@ -241,13 +241,15 @@ class _DetectionScreenState extends State<DetectionScreen> {
 }
 
 class DetectionBottomDrawer extends StatefulWidget {
-  final List<WasteObject> objects;
+  final List<Map<String, dynamic>> detectedBoxes;
+  final Uint8List imageBytes;
   final Function(WasteObject) onTapObject;
   final VoidCallback? onManualSearch;
 
   const DetectionBottomDrawer({
     Key? key,
-    required this.objects,
+    required this.detectedBoxes,
+    required this.imageBytes,
     required this.onTapObject,
     required this.onManualSearch
   }) : super(key: key);
@@ -281,14 +283,24 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
       isExpanded = !isExpanded;
     });
   }
+
+  void didUpdateWidget(covariant DetectionBottomDrawer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Only refilter if the detected boxes have changed
+    if (widget.detectedBoxes != oldWidget.detectedBoxes) {
+      _filterUniqueObjects();
+    }
+  }
   void _filterUniqueObjects() {
+    var objects = widget.detectedBoxes
+        .map((d) => objectMap[d['classIndex']])
+        .whereType<WasteObject>()
+        .toList();
     final seen = <String>{};
     _uniqueObjects = [];
     _objectCounts = {};
-    print("ldjfaoejflajfadlfjaeio: ");
-    print(widget.objects[0].name);
-    
-    for (final obj in widget.objects) {
+
+    for (final obj in objects) {
       _objectCounts[obj.name] = (_objectCounts[obj.name] ?? 0) + 1;
       if (!seen.contains(obj.name)) {
         seen.add(obj.name);
@@ -372,6 +384,15 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                     }
                   },
                 ),
+                ListTile(
+                  title: Text("Bantu kami"),
+                  subtitle: Text("tandai objek yang tidak terdeteksi/salah deteksi"),
+                  onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AnnotationPage(imageBytes: widget.imageBytes, detectedBoxes: widget.detectedBoxes)
+                    )
+                  )
+                )
               ],
             ),
           ),
