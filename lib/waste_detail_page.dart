@@ -144,6 +144,7 @@ class _ObjectDetailPageState extends State<ObjectDetailPage> {
               ),
               Center(
                 child: Text(
+                  object.categoryId=='organic'? 'Organik':
                   object.recyclable
                       ? "Dapat didaur ulang"
                       : object.hazardous

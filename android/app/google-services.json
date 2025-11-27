@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750181186660",
+    "project_id": "annotasi-image-sampah",
+    "storage_bucket": "annotasi-image-sampah.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750181186660:android:154a685ee1fe297c5db371",
+        "android_client_info": {
+          "package_name": "com.example.skripshot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAciD0zFP4RtUs6lWrWzQluDXikCb2q62w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

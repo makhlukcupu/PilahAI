@@ -1,5 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:ui' as ui; // untuk decodeImageFromList
 
 class AnnotationPage extends StatefulWidget {
   final Uint8List imageBytes;
@@ -226,6 +229,60 @@ class _AnnotationPageState extends State<AnnotationPage> {
     return null;
   }
 
+  Future<Uint8List> generateAnnotationJson(
+      List<Map<String, dynamic>> boxes,
+      double imgW,
+      double imgH,
+      ) async {
+    final data = {
+      "image_width": imgW,
+      "image_height": imgH,
+      "annotations": boxes.map((b) {
+        return {
+          "label": b["label"],
+          "box": List<double>.from(b["box"]),
+        };
+      }).toList(),
+    };
+
+    final jsonString = jsonEncode(data);
+    return Uint8List.fromList(utf8.encode(jsonString));
+  }
+
+  Future<void> _saveAnnotationToFirebase() async {
+    final decoded = await decodeImageFromList(widget.imageBytes);
+    final imgW = decoded.width.toDouble();
+    final imgH = decoded.height.toDouble();
+
+    // siapkan file JSON anotasi
+    final jsonBytes = await generateAnnotationJson(boxes, imgW, imgH);
+
+    final ts = DateTime.now().millisecondsSinceEpoch;
+
+    final storage = FirebaseStorage.instance;
+
+    // Upload gambar
+    final imgRef = storage.ref("dataset/images/$ts.jpg");
+    await imgRef.putData(widget.imageBytes);
+
+    // Upload anotasi JSON
+    final annRef = storage.ref("dataset/annotations/$ts.json");
+    await annRef.putData(
+      jsonBytes,
+      SettableMetadata(contentType: "application/json"),
+    );
+
+    // URL opsional kalau ingin disimpan ke Firestore
+    // final imgUrl = await imgRef.getDownloadURL();
+    // final annUrl = await annRef.getDownloadURL();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Terima kasih, anotasi berhasil dikirim")),
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -432,16 +489,17 @@ class _AnnotationPageState extends State<AnnotationPage> {
             bottom: 0,
             child: AnnotationDrawer(
               boxes: boxes,
-              //selectedIndex: selectedIndex,
               onDelete: (index) {
-                // Handle delete logic
                 setState(() => boxes.removeAt(index));
               },
               onSelect: (index) {
-                // Handle box selection
                 _bringToFront(index);
               },
+              onSave: () async {
+                await _saveAnnotationToFirebase();
+              },
             )
+
           ),
         ],
       ),
@@ -454,6 +512,9 @@ class AnnotationDrawer extends StatefulWidget {
   // final int? selectedIndex;
   final Function(int)? onDelete;
   final Function(int)? onSelect;
+  final Future<void> Function()? onSave;
+
+
 
   const AnnotationDrawer({
     Key? key,
@@ -462,6 +523,7 @@ class AnnotationDrawer extends StatefulWidget {
     //this.selectedIndex,
     this.onDelete,
     this.onSelect,
+    this.onSave,
   }) : super(key: key);
 
   @override
@@ -490,94 +552,171 @@ class _AnnotationDrawerState extends State<AnnotationDrawer> {
       _isExpanded = !_isExpanded;
     });
   }
-
-  Widget _buildBottomDrawer() {
-    return DraggableScrollableSheet(
-      controller: _sheetController,
-      initialChildSize: 0.1,
-      minChildSize: 0.1,
-      maxChildSize: 0.6,
-      snap: true,
-      snapSizes: const [0.1, 0.3, 0.6],
-
-      builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              boxShadow: [
-          BoxShadow(
-          color: Colors.black.withOpacity(0.2),
-          blurRadius: 8,
-          offset: const Offset(0, -2),
-          )],
-        ),
-        child: Column(
-        children: [
-        // Drawer handle with gesture detector for tap to toggle
-        GestureDetector(
-          onTap: _toggleDrawer,
-          behavior: HitTestBehavior.opaque,
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // user tidak bisa close
+      builder: (_) {
+        return Center(
           child: Container(
-            height: 40,
-            alignment: Alignment.center,
-            child: Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.circular(2),
-              ),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Menyimpan anotasi..."),
+              ],
             ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: widget.boxes.length,
-            itemBuilder: (context, index) {
-            final box = widget.boxes[index];
-            final isSelected = selectedIndex == index;
-            return ListTile(
-            title: Text(
-            box['label'] ?? 'Unlabeled',
-            style: TextStyle(
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            color: isSelected ? Colors.blue : Colors.black,
-            ),
-            ),
-            subtitle: Text(
-            '(${box['box'][0].toStringAsFixed(0)}, '
-            '${box['box'][1].toStringAsFixed(0)}) - '
-            '(${box['box'][2].toStringAsFixed(0)}, '
-            '${box['box'][3].toStringAsFixed(0)})',
-            style: TextStyle(
-            color: isSelected ? Colors.blue : Colors.grey[700],
-            ),
-            ),
-            onTap: () {
-            widget.onSelect!(index);
-            },
-            );
-            },
-          ),
-        ),
-        // Show annotation count when drawer is collapsed
-        if (widget.boxes.isNotEmpty && !_isExpanded)
-        Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        alignment: Alignment.centerLeft,
-        child: Text(
-        '${widget.boxes.length} annotations',
-        style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        ),
-        ],
-        ),
         );
       },
     );
   }
+
+  Widget _buildBottomDrawer() {
+    return DraggableScrollableSheet(
+      controller: _sheetController,
+      initialChildSize: 0.08,
+      minChildSize: 0.08,
+      maxChildSize: 0.6,
+      snap: true,
+      snapSizes: const [0.1, 0.3, 0.6],
+      builder: (BuildContext context, ScrollController scrollController) {
+        final isCollapsed = !_isExpanded;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 8,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final double sheetHeight = constraints.maxHeight;
+
+              // threshold aman agar tombol save tidak bikin overflow
+              final bool showSaveButton = sheetHeight > 150;
+
+              return Column(
+                children: [
+
+                  // HEADER (gesture area)
+                  GestureDetector(
+                    onTap: _toggleDrawer,
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 10, bottom: 8),
+                      width: double.infinity, // full lebar
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[500],
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                          if (!_isExpanded && widget.boxes.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                '${widget.boxes.length} anotasi',
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // LIST
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: widget.boxes.length,
+                      itemBuilder: (context, index) {
+                        final box = widget.boxes[index];
+                        final isSelected = selectedIndex == index;
+
+                        return ListTile(
+                          title: Text(
+                            box['label'] ?? 'Unlabeled',
+                            style: TextStyle(
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              color: isSelected ? Colors.blue : Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '(${box['box'][0].toStringAsFixed(0)}, '
+                                '${box['box'][1].toStringAsFixed(0)}) - '
+                                '(${box['box'][2].toStringAsFixed(0)}, '
+                                '${box['box'][3].toStringAsFixed(0)})',
+                          ),
+                          onTap: () {
+                            setState(() => selectedIndex = index);
+                            widget.onSelect?.call(index);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+
+                  // SAVE BUTTON — hanya tampil jika space cukup
+                  if (widget.boxes.isNotEmpty && showSaveButton)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            _showLoadingDialog(context);
+                            try {
+                              await widget.onSave?.call();
+                              // proses simpan
+
+                              Navigator.pop(context); // tutup loading dialog
+                              //Navigator.pop(context); // kembali ke halaman foto
+
+                            } catch (e) {
+                              Navigator.pop(context); // tutup loading dialog
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Gagal menyimpan anotasi: $e"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+
+                      child: const Text("Simpan Annotasi"),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+        );
+
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

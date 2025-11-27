@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:skripshot/category_detail_page.dart';
 import 'package:skripshot/yolo_model.dart';
 import 'camera_screen.dart';
@@ -15,11 +16,14 @@ import 'package:skripshot/waste_detail_page.dart';
 import 'package:flutter/services.dart'; // For rootBundle
 import 'package:skripshot/about_app.dart';
 import 'package:skripshot/quotes_services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   // Start all initialization tasks in the background
   final initialization = _initializeApp();
@@ -294,7 +298,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
             if (recentObjects.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                child: Text("Baru Dilihat", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text("Menarik Perhatianmu", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               SizedBox(
                 height: 170,
@@ -340,6 +344,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
           ],
         ),
       ),
+
 
       // 📸 Floating Camera Button
       floatingActionButton: Row(
@@ -445,7 +450,7 @@ class ObjectCard extends StatelessWidget {
             Text(object.name, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Text(
-              object.recyclable ? 'Daur Ulang' : object.hazardous? 'Beracun atau Berbahaya (B3)' : 'Tidak Daur Ulang',
+              object.categoryId=='organic'? 'Organik': object.recyclable ? 'Daur Ulang' : object.hazardous? 'Beracun atau Berbahaya (B3)' : 'Residu',
               style: TextStyle(
                 color: object.recyclable ? Colors.green : object.hazardous? Colors.brown : Colors.red,
                 fontSize: 12,

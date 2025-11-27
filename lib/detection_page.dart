@@ -24,6 +24,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
   double displayWidth = 1, displayHeight = 1;
   double offsetX = 0, offsetY = 0;
   bool isProcessing = true;
+  String processingTime = '';
 
 
 
@@ -46,6 +47,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
   }
 
   Future<void> _runObjectDetection() async {
+    final stopwatch = Stopwatch()..start();
     if (classLabels.isEmpty) {
       await loadLabels();
     }
@@ -59,6 +61,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
       setState(() {
         detectedBoxes = results;
         isProcessing = false;
+        processingTime = 'Processing time: ${stopwatch.elapsedMilliseconds}ms';
       });
     } catch (e) {
       print("gagal dijalankan");
@@ -104,6 +107,10 @@ class _DetectionScreenState extends State<DetectionScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
+              ),
+              Text(
+                processingTime,
+                style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               if (isProcessing)
                 Positioned.fill(
@@ -353,7 +360,7 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        obj.recyclable? "daur ulang":obj.hazardous?"B3": "residu",
+                        obj.categoryId=='organic'? 'Organik': obj.recyclable? "daur ulang":obj.hazardous?"B3": "residu",
                         style: TextStyle(
                           color: obj.recyclable? Colors.blue : obj.hazardous? Colors.red : Colors.yellow,
                           fontSize: 16
