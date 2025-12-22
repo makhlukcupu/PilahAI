@@ -65,10 +65,12 @@ class YoloModel {
   }
 
   Future<List<Map<String, dynamic>>> runYOLOv11Model(Uint8List imageBytes) async {
-
+    Stopwatch stopwatch = Stopwatch();
+    Map<String, int> timings = {};
     // 2. Preprocess input
+    print('\n🔧 Preprocessing...');
+    stopwatch.start();
     final inputBuffer = preprocess(imageBytes, 640, 640);
-
     //print(inputBuffer.shape);
 
     // 3. Prepare output
@@ -80,11 +82,20 @@ class YoloModel {
       ),
     );
     // 4. Run inference
+    stopwatch.stop();
+    timings['preprocess'] = stopwatch.elapsedMilliseconds;
+    print('✅ Preprocessing completed in: ${timings['preprocess']}ms');
+    stopwatch.reset();
+    stopwatch.start();
     _interpreter.run(inputBuffer, output);
+    stopwatch.stop();
+    timings['inference'] = stopwatch.elapsedMilliseconds;
+    print('✅ Inference completed in: ${timings['inference']}ms');
 
 // Post-process
     //print("📌 Raw Output Data Length: ${outputData.length}");
-
+    stopwatch.reset();
+    stopwatch.start();
     // ✅ Process YOLO Output (8400 detections)
     int numBoxes = _interpreter
         .getOutputTensor(0)
@@ -96,6 +107,10 @@ class YoloModel {
     final yoloProcessor = YoloPostProcessor(
         confThreshold: 0.6, nmsThreshold: 0.4);
     List<Map<String, dynamic>> detections = yoloProcessor.processOutput(output, numBoxes, numClasses);
+    stopwatch.stop();
+    timings['postprocess'] = stopwatch.elapsedMilliseconds;
+    print('✅ Post-processing completed in: ${timings['postprocess']}ms');
+
 
     return detections;
   }

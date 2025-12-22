@@ -452,7 +452,7 @@ class ObjectCard extends StatelessWidget {
             Text(
               object.categoryId=='organic'? 'Organik': object.recyclable ? 'Daur Ulang' : object.hazardous? 'Beracun atau Berbahaya (B3)' : 'Residu',
               style: TextStyle(
-                color: object.recyclable ? Colors.green : object.hazardous? Colors.brown : Colors.red,
+                color: object.recyclable ? Colors.green : object.hazardous? Colors.red : Colors.orange,
                 fontSize: 12,
               ),
             ),

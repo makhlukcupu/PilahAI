@@ -948,7 +948,7 @@
       "desc": "Masker medis atau non-medis berbahan plastik dan serat sintetis. Tidak dapat didaur ulang dan berisiko menyebarkan kuman.",
       "recyclable": false,
       "hazardous": true,
-      "category": "residu",
+      "category": "residue",
       "alias": ["Masker medis", "Masker biru", "Masker bekas"],
       "handling": "Gunting sebelum dibuang dan masukkan ke kantong tertutup. Buang ke tempat sampah residu.",
       "reuse_ideas": []
@@ -1037,7 +1037,7 @@
       "desc": "Piringan plastik dengan lapisan reflektif yang sulit terurai dan tidak dapat didaur ulang melalui sistem biasa.",
       "recyclable": false,
       "hazardous": false,
-      "category": "residu",
+      "category": "residue",
       "alias": ["Disk rusak", "CD bekas", "DVD bekas"],
       "handling": "Patahkan sebelum dibuang agar tidak disalahgunakan. Masukkan ke dalam sampah anorganik.",
       "reuse_ideas": [
@@ -1063,7 +1063,7 @@
       "desc": "Potongan kayu tua atau bekas furnitur yang sudah rapuh. Bisa digunakan kembali atau dibakar sebagai bahan bakar.",
       "recyclable": false,
       "hazardous": false,
-      "category": "residu",
+      "category": "residue",
       "alias": ["Kayu bekas", "Papan rusak"],
       "handling": "Jika kering, bisa dijadikan bahan bakar. Jika lembap atau berjamur, buang ke tempat sampah residu.",
       "reuse_ideas": [

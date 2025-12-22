@@ -19,6 +19,7 @@ class _AllObjectsPageState extends State<AllObjectsPage> {
   List<WasteObject> _allObjects = [];
   List<WasteObject> _filteredObjects = [];
 
+
   @override
   void initState() {
     super.initState();
@@ -88,19 +89,53 @@ class _AllObjectsPageState extends State<AllObjectsPage> {
               itemBuilder: (context, index) {
                 final obj = _filteredObjects[index];
                 return ListTile(
-                  leading: Icon(Icons.recycling, color: Colors.green[600]),
+                  leading: (() {
+                    final cat = WasteRepository.categories
+                        .where((c) => c.id == obj.categoryId)
+                        .cast<Category?>()
+                        .firstOrNull;
+
+                    if (cat?.icon != null && cat!.icon.isNotEmpty) {
+                      return Image.asset(cat.icon);
+                    } else {
+                      return const Icon(Icons.image_not_supported);
+                    }
+                  })(),
                   title: Text(obj.name),
-                  subtitle: Text(obj.categoryId),
+                  subtitle: Text(
+                    obj.categoryId == 'organic'
+                        ? 'Organik'
+                        : obj.recyclable
+                        ? "Daur Ulang"
+                        : obj.hazardous
+                        ? "B3"
+                        : "Residu",
+                    style: TextStyle(
+                      color: obj.recyclable
+                          ? Colors.blue
+                          : obj.hazardous
+                          ? Colors.red
+                          : Colors.orange,
+                      fontSize: 16,
+                    ),
+                  ),
                   onTap: () {
+                    final cat = WasteRepository.categories
+                        .where((c) => c.id == obj.categoryId)
+                        .cast<Category?>()
+                        .firstOrNull;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ObjectDetailPage(object: obj, icon: WasteRepository.categories.firstWhere((cat) => cat.id == obj.categoryId).icon),
+                        builder: (context) => ObjectDetailPage(
+                          object: obj,
+                          icon: cat!.icon, // kirim null kalau tidak punya icon
+                        ),
                       ),
                     );
-                    // Navigate to detail page if needed
                   },
                 );
+
               },
             ),
           ),

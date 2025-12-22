@@ -362,7 +362,7 @@ class _DetectionBottomDrawerState extends State<DetectionBottomDrawer> {
                       Text(
                         obj.categoryId=='organic'? 'Organik': obj.recyclable? "daur ulang":obj.hazardous?"B3": "residu",
                         style: TextStyle(
-                          color: obj.recyclable? Colors.blue : obj.hazardous? Colors.red : Colors.yellow,
+                          color: obj.recyclable? Colors.blue : obj.hazardous? Colors.red : Colors.orange,
                           fontSize: 16
                         ),
                       ),
