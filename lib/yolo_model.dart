@@ -1,12 +1,9 @@
-import 'dart:io';
-import 'package:skripshot/yoloPostProcess.dart';
-// import 'package:tflite_flutter_plus/tflite_flutter_plus.dart';
-// import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
-import 'package:image/image.dart' as img;
+import 'dart:math' as math;
 import 'dart:typed_data';
-
+import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 
+import 'yoloPostProcess.dart';
 
 class YoloModel {
   static final YoloModel _instance = YoloModel._internal();
@@ -14,196 +11,158 @@ class YoloModel {
   late List<int> _inputShape;
   late List<int> _outputShape;
 
+  // ====== GEOMETRY STATE (PENTING) ======
+  late double _scale;
+  late int _padX;
+  late int _padY;
+  late int _srcW;
+  late int _srcH;
+
   factory YoloModel() {
     return _instance;
   }
 
   YoloModel._internal();
 
+  // =====================================
+  // LOAD MODEL
+  // =====================================
   Future<void> loadModel() async {
-    try {
-      // final options = InterpreterOptions()
-      //   ..addDelegate(GpuDelegateV2()) // GPU acceleration
-      //   ..threads = 4;
+    _interpreter = await Interpreter.fromAsset('assets/best.tflite');
 
-      _interpreter = await Interpreter.fromAsset(
-        'assets/best.tflite', // Your YOLO model
-      );
+    _inputShape = _interpreter.getInputTensor(0).shape;
+    _outputShape = _interpreter.getOutputTensor(0).shape;
 
-      _inputShape = _interpreter
-          .getInputTensor(0)
-          .shape;
-      _outputShape = _interpreter
-          .getOutputTensor(0)
-          .shape;
-
-      print('Input shape: $_inputShape'); // Expected: [1, 640, 640, 3]
-      print('Output shape: $_outputShape'); // Expected: [1, 84, 8400] (YOLOv11)
-      print('Input type: ${_interpreter.getInputTensor(0).type}');
-      print('Output type: ${_interpreter.getOutputTensor(0).type}');
-    } catch (e) {
-      print('Failed to load model: $e');
-    }
+    print('Input shape : $_inputShape');   // [1,640,640,3]
+    print('Output shape: $_outputShape');  // [1,84,8400]
   }
 
-  List<List<List<List<double>>>> preprocess(Uint8List imageData, int inputWidth, int inputHeight) {
+  // =====================================
+  // PREPROCESS — LETTERBOX
+  // =====================================
+  List<List<List<List<double>>>> preprocess(
+      Uint8List imageData,
+      int inputWidth,
+      int inputHeight,
+      ) {
     final image = img.decodeImage(imageData)!;
-    final resized = img.copyResize(image, width: inputWidth, height: inputHeight);
 
+    _srcW = image.width;
+    _srcH = image.height;
+
+    _scale = math.min(
+      inputWidth / _srcW,
+      inputHeight / _srcH,
+    );
+
+    final newW = (_srcW * _scale).round();
+    final newH = (_srcH * _scale).round();
+
+    final resized = img.copyResize(
+      image,
+      width: newW,
+      height: newH,
+      interpolation: img.Interpolation.linear,
+    );
+
+    _padX = ((inputWidth - newW) / 2).floor();
+    _padY = ((inputHeight - newH) / 2).floor();
+
+    // Canvas 640x640 (letterbox)
+    final canvas = img.Image(
+      width: inputWidth,
+      height: inputHeight,
+    );
+
+    // Background hitam
+    img.fill(canvas, color: img.ColorRgb8(0, 0, 0));
+
+    // Tempel resized image
+    img.compositeImage(
+      canvas,
+      resized,
+      dstX: _padX,
+      dstY: _padY,
+    );
+
+    // Convert ke tensor [1, H, W, 3]
     return [
       List.generate(inputHeight, (y) =>
           List.generate(inputWidth, (x) {
-            final pixel = resized.getPixel(x, y);
+            final p = canvas.getPixel(x, y);
             return [
-              pixel.r / 255.0,
-              pixel.g / 255.0,
-              pixel.b / 255.0,
+              p.r / 255.0,
+              p.g / 255.0,
+              p.b / 255.0,
             ];
           })
       )
     ];
   }
 
-  Future<List<Map<String, dynamic>>> runYOLOv11Model(Uint8List imageBytes) async {
-    Stopwatch stopwatch = Stopwatch();
-    Map<String, int> timings = {};
-    // 2. Preprocess input
-    print('\n🔧 Preprocessing...');
-    stopwatch.start();
-    final inputBuffer = preprocess(imageBytes, 640, 640);
-    //print(inputBuffer.shape);
+  // =====================================
+  // RUN YOLO + UNLETTERBOX
+  // =====================================
+  Future<List<Map<String, dynamic>>> runYOLOv11Model(
+      Uint8List imageBytes,
+      ) async {
 
-    // 3. Prepare output
+    // ---------- PREPROCESS ----------
+    final inputBuffer = preprocess(imageBytes, 640, 640);
+
+    // ---------- OUTPUT BUFFER ----------
     final output = List.generate(
       _outputShape[0],
           (_) => List.generate(
-            _outputShape[1],
-            (_) => List.filled(8400, 0.0),
+        _outputShape[1],
+            (_) => List.filled(_outputShape[2], 0.0),
       ),
     );
-    // 4. Run inference
-    stopwatch.stop();
-    timings['preprocess'] = stopwatch.elapsedMilliseconds;
-    print('✅ Preprocessing completed in: ${timings['preprocess']}ms');
-    stopwatch.reset();
-    stopwatch.start();
-    _interpreter.run(inputBuffer, output);
-    stopwatch.stop();
-    timings['inference'] = stopwatch.elapsedMilliseconds;
-    print('✅ Inference completed in: ${timings['inference']}ms');
 
-// Post-process
-    //print("📌 Raw Output Data Length: ${outputData.length}");
-    stopwatch.reset();
-    stopwatch.start();
-    // ✅ Process YOLO Output (8400 detections)
-    int numBoxes = _interpreter
-        .getOutputTensor(0)
-        .shape[2];
-    int numClasses = _interpreter
-        .getOutputTensor(0)
-        .shape[1] - 4; // adjust to number of classes of my model
+    // ---------- INFERENCE ----------
+    _interpreter.run(inputBuffer, output);
+
+    // ---------- POSTPROCESS ----------
+    final numBoxes = _outputShape[2];       // 8400
+    final numClasses = _outputShape[1] - 4; // class count
 
     final yoloProcessor = YoloPostProcessor(
-        confThreshold: 0.6, nmsThreshold: 0.4);
-    List<Map<String, dynamic>> detections = yoloProcessor.processOutput(output, numBoxes, numClasses);
-    stopwatch.stop();
-    timings['postprocess'] = stopwatch.elapsedMilliseconds;
-    print('✅ Post-processing completed in: ${timings['postprocess']}ms');
+      confThreshold: 0.6,
+      nmsThreshold: 0.4,
+    );
 
+    List<Map<String, dynamic>> detections =
+    yoloProcessor.processOutput(
+      output,
+      numBoxes,
+      numClasses,
+    );
+
+    // ---------- UNLETTERBOX (CENTER → CORNER) ----------
+    for (var det in detections) {
+      final List<double> b = det['box']; // [cx, cy, w, h] in 640x640
+
+      // 1️⃣ unpad + unscale (CENTER SPACE)
+      double cx = (b[0] - _padX) / _scale;
+      double cy = (b[1] - _padY) / _scale;
+      double w  = b[2] / _scale;
+      double h  = b[3] / _scale;
+
+      // 2️⃣ convert to corner
+      double x1 = cx - w / 2;
+      double y1 = cy - h / 2;
+      double x2 = cx + w / 2;
+      double y2 = cy + h / 2;
+
+      // 3️⃣ clamp ke ukuran image asli
+      x1 = x1.clamp(0.0, _srcW.toDouble());
+      y1 = y1.clamp(0.0, _srcH.toDouble());
+      x2 = x2.clamp(0.0, _srcW.toDouble());
+      y2 = y2.clamp(0.0, _srcH.toDouble());
+
+      det['box'] = [x1, y1, x2, y2];
+    }
 
     return detections;
   }
-
-
-
-
-
-// class YoloModel {
-//   static final YoloModel _instance = YoloModel
-//       ._internal(); // Singleton instance
-//   Interpreter? _interpreter;
-//
-//   factory YoloModel() {
-//     return _instance;
-//   }
-//
-//   YoloModel._internal(); // Private constructor
-//
-//   /// Load YOLO model once
-//   Future<void> loadModel() async {
-//     _interpreter ??= await Interpreter.fromAsset("best.tflite");
-//   }
-//
-//   Future<List<Map<String, dynamic>>> runYOLOv11Model(String imagePath) async {
-//     if (_interpreter == null) {
-//       await loadModel(); // Ensure the model is loaded
-//     }
-//     // Preprocess image
-//     TensorBuffer preprocessImage(String imagePath) {
-//       File imageFile = File(imagePath);
-//       List<int> imageBytes = imageFile.readAsBytesSync();
-//       img.Image? image = img.decodeImage(Uint8List.fromList(imageBytes));
-//
-//       if (image == null) {
-//         throw Exception("Error decoding image");
-//       }
-//       var inputImage = TensorImage(TfLiteType.float32);
-//       inputImage.loadImage(image); // ✅ Now inputImage is correctly loaded
-//
-//       // ✅ Print raw pixel values before preprocessing
-//       //print("📌 First 10 Raw Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
-//
-//       // ✅ Apply Image Processing (Resize + Normalize)
-//       var imageProcessor = ImageProcessorBuilder()
-//           .add(ResizeOp(
-//           640, 640, ResizeMethod.nearestneighbour)) // Resize to match model input
-//           .add(NormalizeOp(0, 255.0)) // Normalize between -1 and 1
-//           .build();
-//
-//       inputImage = imageProcessor.process(inputImage);
-//       //print("📌 First 10 processed Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
-//       var inputBuffer = inputImage.getTensorBuffer();
-//       var floatBuffer = TensorBuffer.createFixedSize(
-//           inputBuffer.getShape(), TfLiteType.float32);
-//       floatBuffer.loadList(inputBuffer.getDoubleList(),
-//           shape: inputBuffer.getShape()); // 🔹 Fix: Pass shape explicitly
-//       return floatBuffer;
-//     }
-//     var imageTensor = preprocessImage(imagePath);
-//     //print(imageTensor.getDoubleList());
-//
-//     // Define output buffer shape
-//     var outputBuffer = TensorBuffer.createFixedSize(_interpreter!
-//         .getOutputTensor(0)
-//         .shape, TfLiteType.float32);
-//     //print(_interpreter!.getOutputTensor(0).shape);
-//
-//     // Run inference
-//     //print("✅ Running YOLO model...");
-//     _interpreter!.run(imageTensor.buffer, outputBuffer.buffer);
-//
-//
-//     // Post-process
-//     List<double> outputData = outputBuffer.getDoubleList();
-//     //print("📌 Raw Output Data Length: ${outputData.length}");
-//
-//     // ✅ Process YOLO Output (8400 detections)
-//     int numBoxes = _interpreter!.getOutputTensor(0).shape[2];
-//     int numClasses = _interpreter!.getOutputTensor(0).shape[1] - 4; // adjust to number of classes of my model
-//
-//     final yoloProcessor = YoloPostProcessor(
-//         confThreshold: 0.6, nmsThreshold: 0.4);
-//     List<Map<String, dynamic>> detections = yoloProcessor.processOutput(
-//         outputData, numBoxes, numClasses);
-//
-//     return detections;
-//   }
-//   /// Close model when app exits
-//   void close() {
-//     _interpreter?.close();
-//     _interpreter = null;
-//   }
-// }
-//
 }

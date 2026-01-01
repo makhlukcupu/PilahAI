@@ -22,10 +22,10 @@ class YoloPostProcessor {
     for (var boxIdx = 0; boxIdx < numBoxes; boxIdx++) {
       // Get the box coordinates [x1, y1, x2, y2]
       final box = [
-        boxes[0][boxIdx] - boxes[2][boxIdx]/2, // x1
-        boxes[1][boxIdx] - boxes[3][boxIdx]/2, // y1
-        boxes[0][boxIdx] + boxes[2][boxIdx]/2, // x2
-        boxes[1][boxIdx] + boxes[3][boxIdx]/2, // y2
+        boxes[0][boxIdx], // cx
+        boxes[1][boxIdx], // cy
+        boxes[2][boxIdx], // w
+        boxes[3][boxIdx], // h
       ];
 
       // Get all class probabilities for this box
