@@ -37,9 +37,6 @@ class YoloModel {
     print('Output shape: $_outputShape');  // [1,84,8400]
   }
 
-  // =====================================
-  // PREPROCESS — LETTERBOX
-  // =====================================
   List<List<List<List<double>>>> preprocess(
       Uint8List imageData,
       int inputWidth,
@@ -100,17 +97,16 @@ class YoloModel {
     ];
   }
 
-  // =====================================
+
   // RUN YOLO + UNLETTERBOX
-  // =====================================
   Future<List<Map<String, dynamic>>> runYOLOv11Model(
       Uint8List imageBytes,
       ) async {
 
-    // ---------- PREPROCESS ----------
+    //  PREPROCESS
     final inputBuffer = preprocess(imageBytes, 640, 640);
 
-    // ---------- OUTPUT BUFFER ----------
+    // OUTPUT BUFFER
     final output = List.generate(
       _outputShape[0],
           (_) => List.generate(
@@ -138,23 +134,23 @@ class YoloModel {
       numClasses,
     );
 
-    // ---------- UNLETTERBOX (CENTER → CORNER) ----------
+    //  UNLETTERBOX (CENTER → CORNER)
     for (var det in detections) {
       final List<double> b = det['box']; // [cx, cy, w, h] in 640x640
 
-      // 1️⃣ unpad + unscale (CENTER SPACE)
+      //  unpad + unscale (CENTER SPACE)
       double cx = (b[0] - _padX) / _scale;
       double cy = (b[1] - _padY) / _scale;
       double w  = b[2] / _scale;
       double h  = b[3] / _scale;
 
-      // 2️⃣ convert to corner
+      // convert to corner
       double x1 = cx - w / 2;
       double y1 = cy - h / 2;
       double x2 = cx + w / 2;
       double y2 = cy + h / 2;
 
-      // 3️⃣ clamp ke ukuran image asli
+      //  clamp ke ukuran image asli
       x1 = x1.clamp(0.0, _srcW.toDouble());
       y1 = y1.clamp(0.0, _srcH.toDouble());
       x2 = x2.clamp(0.0, _srcW.toDouble());
