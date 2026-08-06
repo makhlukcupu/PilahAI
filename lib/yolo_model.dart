@@ -93,10 +93,9 @@ class YoloModel {
     print('✅ Inference completed in: ${timings['inference']}ms');
 
 // Post-process
-    //print("📌 Raw Output Data Length: ${outputData.length}");
     stopwatch.reset();
     stopwatch.start();
-    // ✅ Process YOLO Output (8400 detections)
+    // Process YOLO Output (8400 detections)
     int numBoxes = _interpreter
         .getOutputTensor(0)
         .shape[2];
@@ -149,12 +148,12 @@ class YoloModel {
 //         throw Exception("Error decoding image");
 //       }
 //       var inputImage = TensorImage(TfLiteType.float32);
-//       inputImage.loadImage(image); // ✅ Now inputImage is correctly loaded
+//       inputImage.loadImage(image);
 //
-//       // ✅ Print raw pixel values before preprocessing
-//       //print("📌 First 10 Raw Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
+//       // Print raw pixel values before preprocessing
+//       //print("First 10 Raw Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
 //
-//       // ✅ Apply Image Processing (Resize + Normalize)
+//       // Apply Image Processing (Resize + Normalize)
 //       var imageProcessor = ImageProcessorBuilder()
 //           .add(ResizeOp(
 //           640, 640, ResizeMethod.nearestneighbour)) // Resize to match model input
@@ -162,7 +161,7 @@ class YoloModel {
 //           .build();
 //
 //       inputImage = imageProcessor.process(inputImage);
-//       //print("📌 First 10 processed Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
+//       //print("First 10 processed Image Pixel Values: ${inputImage.getTensorBuffer().getDoubleList().sublist(0, 10)}");
 //       var inputBuffer = inputImage.getTensorBuffer();
 //       var floatBuffer = TensorBuffer.createFixedSize(
 //           inputBuffer.getShape(), TfLiteType.float32);
@@ -186,9 +185,9 @@ class YoloModel {
 //
 //     // Post-process
 //     List<double> outputData = outputBuffer.getDoubleList();
-//     //print("📌 Raw Output Data Length: ${outputData.length}");
+//     //print("Raw Output Data Length: ${outputData.length}");
 //
-//     // ✅ Process YOLO Output (8400 detections)
+//     // Process YOLO Output (8400 detections)
 //     int numBoxes = _interpreter!.getOutputTensor(0).shape[2];
 //     int numClasses = _interpreter!.getOutputTensor(0).shape[1] - 4; // adjust to number of classes of my model
 //
